@@ -1,1 +1,416 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benjamin Tamunoibi Jaja — thestoicgeek</title>
+<meta name="description" content="Benjamin Tamunoibi Jaja — Web development &amp; cybersecurity. Final-year B.Sc CS, Rivers State University.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#090c10;
+    --bg-panel:#0f141b;
+    --bg-panel-alt:#131a23;
+    --border:#1e2733;
+    --text:#c9d4de;
+    --text-dim:#5c6b7d;
+    --text-bright:#eef2f6;
+    --green:#34d399;
+    --green-dim:#1c5e46;
+    --amber:#f5a623;
+    --red:#ef4a5f;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --sans:'IBM Plex Sans', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--bg);
+    background-image:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(52,211,153,0.06), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(245,166,35,0.04), transparent 55%);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--green-dim); color:var(--text-bright);}
+  :focus-visible{outline:2px solid var(--green); outline-offset:3px;}
+
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+
+  /* ---- Nav ---- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(9,12,16,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:920px; margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--mono); font-size:13px;
+  }
+  .nav-brand{color:var(--green); font-weight:600; letter-spacing:.02em; text-decoration:none;}
+  .nav-links{display:flex; gap:22px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; color:var(--text-dim); transition:color .15s;}
+  .nav-links a:hover{color:var(--text-bright);}
+  .nav-links li::before{content:'$ '; color:var(--text-dim); opacity:.6;}
+
+  /* ---- Terminal window chrome ---- */
+  .term{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    background:var(--bg-panel-alt);
+    border-bottom:1px solid var(--border);
+  }
+  .dot{width:10px; height:10px; border-radius:50%;}
+  .dot.r{background:#3a2229;}
+  .dot.y{background:#3a3320;}
+  .dot.g{background:#1e3a2c;}
+  .term-title{
+    margin-left:8px; font-family:var(--mono); font-size:12px; color:var(--text-dim);
+  }
+  .term-body{padding:22px 24px 26px; font-family:var(--mono);}
+
+  /* ---- Hero ---- */
+  .hero{padding:64px 0 40px;}
+  .boot-line{
+    font-size:13px; color:var(--text-dim); margin:0 0 6px;
+    opacity:0; animation:fadeIn .3s forwards;
+  }
+  .boot-line .ok{color:var(--green);}
+  .boot-line .tag{color:var(--amber);}
+  .hero-name{
+    font-family:var(--mono);
+    font-size:clamp(28px, 5vw, 42px);
+    font-weight:700;
+    color:var(--text-bright);
+    margin:18px 0 4px;
+    opacity:0; animation:fadeIn .4s forwards;
+    animation-delay:1.5s;
+  }
+  .hero-handle{
+    color:var(--green); font-weight:500;
+  }
+  .cursor{
+    display:inline-block; width:9px; height:1.1em; background:var(--green);
+    vertical-align:text-bottom; margin-left:2px;
+    animation:blink 1s steps(1) infinite;
+  }
+  .hero-tagline{
+    font-family:var(--sans); font-size:16px; color:var(--text);
+    max-width:60ch; margin:14px 0 0;
+    opacity:0; animation:fadeIn .4s forwards; animation-delay:1.8s;
+  }
+  @keyframes fadeIn{to{opacity:1;}}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ---- Status panel (signature element) ---- */
+  .status{
+    margin-top:32px;
+    opacity:0; animation:fadeIn .5s forwards; animation-delay:2.1s;
+  }
+  .status-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr);
+    border:1px solid var(--border); border-radius:8px; overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .status-cell{
+    padding:14px 16px; border-right:1px solid var(--border);
+  }
+  .status-cell:last-child{border-right:none;}
+  .status-label{
+    font-family:var(--mono); font-size:10px; letter-spacing:.1em;
+    color:var(--text-dim); text-transform:uppercase; margin-bottom:6px;
+  }
+  .status-value{
+    font-family:var(--mono); font-size:14px; color:var(--text-bright); font-weight:600;
+  }
+  .pill{
+    display:inline-flex; align-items:center; gap:6px;
+    color:var(--green); font-size:13px;
+  }
+  .pill::before{
+    content:''; width:7px; height:7px; border-radius:50%; background:var(--green);
+    box-shadow:0 0 8px var(--green);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:.35;}}
+
+  /* ---- Log feed (signature element pt 2) ---- */
+  .feed{
+    margin-top:10px; border:1px solid var(--border); border-top:none; border-radius:0 0 8px 8px;
+    background:var(--bg-panel); max-height:150px; overflow:hidden; position:relative;
+  }
+  .feed::after{
+    content:''; position:absolute; bottom:0; left:0; right:0; height:40px;
+    background:linear-gradient(transparent, var(--bg-panel));
+  }
+  .feed-track{padding:12px 16px; font-family:var(--mono); font-size:12px;}
+  .feed-line{color:var(--text-dim); padding:3px 0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .feed-line .lvl-info{color:var(--green);}
+  .feed-line .lvl-warn{color:var(--amber);}
+  .feed-line .ts{color:var(--text-dim); opacity:.6; margin-right:8px;}
+
+  /* ---- Section shell ---- */
+  section{padding:56px 0;}
+  .section-head{
+    display:flex; align-items:baseline; gap:10px; margin-bottom:22px;
+  }
+  .prompt{font-family:var(--mono); color:var(--green); font-size:15px;}
+  .section-title{
+    font-family:var(--mono); font-size:15px; color:var(--text-dim); letter-spacing:.02em;
+  }
+  hr.rule{border:none; border-top:1px solid var(--border); margin:0 0 22px;}
+
+  /* ---- About ---- */
+  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:36px;}
+  @media (max-width:720px){.about-grid{grid-template-columns:1fr;}}
+  .about-text p{margin:0 0 14px; color:var(--text); font-size:15px;}
+  .about-text strong{color:var(--text-bright); font-weight:600;}
+  .stack-list{list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:13px;}
+  .stack-list li{
+    display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px dashed var(--border);
+    color:var(--text-dim);
+  }
+  .stack-list li span:last-child{color:var(--text);}
+  .edu-box{
+    margin-top:18px; padding:14px 16px; border:1px solid var(--border); border-radius:8px;
+    background:var(--bg-panel); font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
+  }
+  .edu-box b{color:var(--text-bright); font-family:var(--sans); display:block; font-size:14px; margin-bottom:3px;}
+
+  /* ---- Projects ---- */
+  .card{
+    border:1px solid var(--border); border-radius:8px; background:var(--bg-panel);
+    padding:20px 22px; margin-bottom:16px; position:relative;
+    transition:border-color .2s, transform .2s;
+  }
+  .card:hover{border-color:#2a3644; transform:translateY(-2px);}
+  .card-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px;}
+  .badge{
+    font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+    padding:2px 8px; border-radius:99px; border:1px solid currentColor;
+  }
+  .badge.featured{color:var(--green);}
+  .badge.web{color:var(--amber);}
+  .badge.ai{color:#8b9ff5;}
+  .card-title{font-family:var(--mono); font-size:16px; font-weight:600; color:var(--text-bright); margin:0;}
+  .card-desc{font-size:14.5px; color:var(--text); margin:8px 0 12px;}
+  .card-meta{
+    font-family:var(--mono); font-size:12px; color:var(--text-dim);
+    display:flex; flex-wrap:wrap; gap:14px; margin-bottom:10px;
+  }
+  .card-meta span b{color:var(--green); font-weight:600;}
+  .card-links{display:flex; gap:16px; font-family:var(--mono); font-size:12.5px;}
+  .card-links a{color:var(--text-dim); text-decoration:none; border-bottom:1px solid transparent;}
+  .card-links a:hover{color:var(--green); border-bottom-color:var(--green);}
+  .stat-row{display:flex; gap:16px; flex-wrap:wrap; margin:10px 0 4px;}
+  .stat{
+    font-family:var(--mono); font-size:11px; padding:6px 10px; border-radius:6px;
+    background:var(--bg-panel-alt); border:1px solid var(--border); color:var(--text-dim);
+  }
+  .stat b{color:var(--text-bright); font-size:13px; display:block;}
+
+  /* ---- Contact / footer ---- */
+  .contact-term .term-body{text-align:left;}
+  .contact-line{font-size:13.5px; margin:0 0 10px; color:var(--text-dim);}
+  .contact-line .k{color:var(--green);}
+  .contact-links{display:flex; flex-wrap:wrap; gap:22px; margin-top:18px; font-family:var(--mono); font-size:14px;}
+  .contact-links a{text-decoration:none; color:var(--text-bright); display:flex; align-items:center; gap:8px;}
+  .contact-links a:hover{color:var(--green);}
+  .contact-links .arrow{color:var(--green);}
+  footer{padding:32px 0 48px; text-align:center; font-family:var(--mono); font-size:11.5px; color:var(--text-dim);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">thestoicgeek</a>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">bjaja@rsu:~$ ./init.sh</span>
+      </div>
+      <div class="term-body">
+        <p class="boot-line" style="animation-delay:.1s">booting profile<span class="ok"> [ok]</span></p>
+        <p class="boot-line" style="animation-delay:.5s">loading identity<span class="tag"> :: web dev / cybersecurity</span></p>
+        <p class="boot-line" style="animation-delay:.9s">mounting projects<span class="ok"> [4 found]</span></p>
+        <p class="boot-line" style="animation-delay:1.3s">status: <span class="ok">ready</span></p>
+
+        <h1 class="hero-name">Benjamin Tamunoibi Jaja <span class="cursor"></span><br><span class="hero-handle">@thestoicgeek</span></h1>
+        <p class="hero-tagline">Final-year B.Sc. Computer Science student building in web development and cybersecurity. I ship complete systems end to end — from database schema to deployment — and I'm currently pointed at intrusion detection and applied ML security work.</p>
+
+        <div class="status">
+          <div class="status-grid">
+            <div class="status-cell">
+              <div class="status-label">Availability</div>
+              <div class="status-value"><span class="pill">open to work</span></div>
+            </div>
+            <div class="status-cell">
+              <div class="status-label">Base</div>
+              <div class="status-value">Port Harcourt, NG</div>
+            </div>
+            <div class="status-cell">
+              <div class="status-label">Focus</div>
+              <div class="status-value">Web · Security</div>
+            </div>
+          </div>
+          <div class="feed">
+            <div class="feed-track">
+              <div class="feed-line"><span class="ts">log</span><span class="lvl-info">[INFO]</span> aegis-ids :: ensemble model trained — 99.81% accuracy</div>
+              <div class="feed-line"><span class="ts">log</span><span class="lvl-info">[INFO]</span> bookstore :: deployed to production (infinityfree)</div>
+              <div class="feed-line"><span class="ts">log</span><span class="lvl-warn">[WARN]</span> jarvis :: wake-word recognition tuning in progress</div>
+              <div class="feed-line"><span class="ts">log</span><span class="lvl-info">[INFO]</span> woms :: role-based access verified across 3 roles</div>
+              <div class="feed-line"><span class="ts">log</span><span class="lvl-info">[INFO]</span> profile :: portfolio initialized</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat about.md</span></div>
+    <hr class="rule">
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a final-year <strong>B.Sc. Computer Science</strong> student at Rivers State University, Port Harcourt, specializing in <strong>Web Development and Cybersecurity</strong>.</p>
+        <p>Alongside coursework, I freelance — building complete software systems and academic documentation for coursemates, from database design through to deployment. It's how I've stayed sharp on shipping real, working software rather than just class exercises.</p>
+        <p>My main focus right now is applied ML for network security — <strong>AEGIS-IDS</strong>, an intrusion detection system I built end to end, is the project I'm most proud of. I'm building toward a career in cybersecurity and actively studying penetration testing fundamentals alongside it.</p>
+      </div>
+      <div>
+        <ul class="stack-list">
+          <li><span>Languages</span><span>PHP · Python · JavaScript</span></li>
+          <li><span>Backend</span><span>Flask · native PHP</span></li>
+          <li><span>Database</span><span>MySQL (PDO)</span></li>
+          <li><span>ML / Data</span><span>scikit-learn · SHAP · LIME</span></li>
+          <li><span>Security</span><span>IDS design · pentest fundamentals</span></li>
+          <li><span>Tools</span><span>Git · XAMPP · VirtualBox</span></li>
+        </ul>
+        <div class="edu-box">
+          <b>Rivers State University</b>
+          B.Sc. Computer Science — final year<br>
+          Specialization: Web Development &amp; Cybersecurity
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">ls -la ~/projects</span></div>
+    <hr class="rule">
+
+    <div class="card">
+      <div class="card-head">
+        <span class="badge featured">featured</span>
+        <h3 class="card-title">AEGIS-IDS</h3>
+      </div>
+      <p class="card-desc">A complete ML-based network intrusion detection system with a live SOC-style monitoring dashboard — alert timeline, explainability charts, and a real-time demo classification mode.</p>
+      <div class="stat-row">
+        <div class="stat"><b>99.81%</b>ensemble accuracy</div>
+        <div class="stat"><b>2.8M</b>records trained (CICIDS2017)</div>
+        <div class="stat"><b>3</b>models blended</div>
+      </div>
+      <div class="card-meta">
+        <span>Python · Flask · scikit-learn · SHAP · LIME</span>
+      </div>
+      <div class="card-links">
+        <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener">→ view on github</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="badge web">web</span>
+        <h3 class="card-title">BookStore</h3>
+      </div>
+      <p class="card-desc">Full e-commerce platform for online book sales — purchase-gated reviews, wishlist, live stock tracking, and printable invoices. Deployed and live.</p>
+      <div class="card-meta">
+        <span>PHP 8.2 · MySQL · vanilla JS</span>
+      </div>
+      <div class="card-links">
+        <a href="https://github.com/thestoic-geek/bookstore" target="_blank" rel="noopener">→ source</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="badge web">web</span>
+        <h3 class="card-title">WOMS — Work Order Management System</h3>
+      </div>
+      <p class="card-desc">Role-based maintenance request platform for requesters, technicians, and admins — with a full audit trail, workload-aware assignment, and internal-only admin notes.</p>
+      <div class="card-meta">
+        <span>PHP 8.2 · MySQL · vanilla JS</span>
+      </div>
+      <div class="card-links">
+        <a href="https://github.com/thestoic-geek/woms" target="_blank" rel="noopener">→ source</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="badge ai">ai</span>
+        <h3 class="card-title">JARVIS</h3>
+      </div>
+      <p class="card-desc">A personal AI assistant with voice I/O, a wake-word system, system-level tools, and live web search — built on the OpenRouter API.</p>
+      <div class="card-meta">
+        <span>Python · OpenRouter API · Whisper · pyttsx3</span>
+      </div>
+      <div class="card-links">
+        <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener">→ view on github</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat contact.txt</span></div>
+    <hr class="rule">
+    <div class="term contact-term">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">bjaja@rsu:~$ whoami --contact</span>
+      </div>
+      <div class="term-body">
+        <p class="contact-line"><span class="k">&gt;</span> open to internships, freelance builds, and full-time roles in web dev or security.</p>
+        <div class="contact-links">
+          <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener"><span class="arrow">↳</span> github/thestoic-geek</a>
+          <a href="https://x.com/thestoicgeek" target="_blank" rel="noopener"><span class="arrow">↳</span> x/thestoicgeek</a>
+          <a href="mailto:thestoicgeek@protonmail.com"><span class="arrow">↳</span> thestoicgeek@protonmail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>built by thestoicgeek · Port Harcourt, Nigeria</footer>
+
+</body>
+</html>
