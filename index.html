@@ -316,9 +316,48 @@
 
   /* ---- Scramble text ---- */
   .scramble{display:inline-block;}
+
+  /* ---- Intro / boot splash ---- */
+  body.intro-active{overflow:hidden;}
+  .intro{
+    position:fixed; inset:0; z-index:999;
+    background:var(--bg);
+    background-image:
+      radial-gradient(ellipse 800px 500px at 50% 40%, rgba(62,232,159,0.07), transparent 60%);
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity .55s var(--ease), transform .55s var(--ease);
+  }
+  .intro.hide{opacity:0; transform:scale(1.04); pointer-events:none;}
+  .intro-inner{display:flex; flex-direction:column; align-items:center; gap:18px; font-family:var(--mono);}
+  .intro-avatar{
+    width:64px; height:64px; position:relative;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:19px; color:var(--green);
+    background:linear-gradient(160deg, var(--bg-panel-alt), #0a0e14);
+    border:1px solid var(--border); border-radius:14px;
+    box-shadow:0 14px 34px -18px rgba(0,0,0,0.8);
+    text-shadow:0 0 16px var(--green-glow);
+    animation:introPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes introPulse{0%,100%{box-shadow:0 14px 34px -18px rgba(0,0,0,0.8), 0 0 0 0 var(--green-glow);} 50%{box-shadow:0 14px 34px -18px rgba(0,0,0,0.8), 0 0 22px 2px var(--green-glow);}}
+  .intro-status{font-size:12.5px; color:var(--text-dim); letter-spacing:.03em; min-height:16px;}
+  .intro-status.granted{color:var(--green);}
+  .intro-bar{width:200px; height:2px; background:var(--border-soft); border-radius:2px; overflow:hidden;}
+  .intro-bar-fill{height:100%; width:0%; background:var(--green); box-shadow:0 0 10px var(--green-glow); transition:width .1s linear;}
+  .intro-pct{font-size:11px; color:var(--text-dim);}
 </style>
 </head>
-<body>
+<body class="intro-active">
+
+<div class="intro" id="intro">
+  <div class="intro-inner">
+    <div class="intro-avatar">BJ</div>
+    <div class="intro-status" id="introStatus">initializing session<span id="introDots">...</span></div>
+    <div class="intro-bar"><div class="intro-bar-fill" id="introFill"></div></div>
+    <div class="intro-pct" id="introPct">0%</div>
+  </div>
+</div>
+
 
 <nav class="nav">
   <div class="nav-inner">
@@ -495,6 +534,43 @@
 <footer>built by <span class="fspan">thestoicgeek</span> · Port Harcourt, Nigeria</footer>
 
 <script>
+  // ---- Intro / boot splash ----
+  (function(){
+    var fill = document.getElementById('introFill');
+    var pct = document.getElementById('introPct');
+    var status = document.getElementById('introStatus');
+    var intro = document.getElementById('intro');
+    var body = document.body;
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function finish(){
+      status.textContent = 'access granted';
+      status.classList.add('granted');
+      setTimeout(function(){
+        intro.classList.add('hide');
+        body.classList.remove('intro-active');
+        setTimeout(function(){ intro.style.display = 'none'; }, 600);
+      }, 350);
+    }
+
+    if(prefersReduced){
+      fill.style.width = '100%';
+      pct.textContent = '100%';
+      finish();
+      return;
+    }
+
+    var p = 0;
+    var iv = setInterval(function(){
+      p += 3 + Math.random()*7;
+      if(p >= 100){ p = 100; clearInterval(iv); }
+      fill.style.width = p + '%';
+      pct.textContent = Math.floor(p) + '%';
+      if(p >= 100){ finish(); }
+    }, 65);
+  })();
+</script>
+<script>
   var sections = document.querySelectorAll('section');
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
@@ -508,15 +584,17 @@
 
   // ---- Scramble / decode text effect ----
   var GLYPHS = "!<>-_\\/[]{}—=+*^?#$%&01";
-  function scramble(el, finalText, opts){
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Initial reveal: scrambles in from nothing to the final text
+  function scrambleIn(el, finalText, opts, onDone){
     opts = opts || {};
-    var speed = opts.speed || 32;      // ms per frame
-    var revealEvery = opts.revealEvery || 2; // frames per revealed char
+    var speed = opts.speed || 32;
+    var revealEvery = opts.revealEvery || 2;
     var chars = finalText.split('');
     var revealed = 0;
     var frame = 0;
-    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(prefersReduced){ el.textContent = finalText; return; }
+    if(prefersReduced){ el.textContent = finalText; if(onDone) onDone(); return; }
 
     var timer = setInterval(function(){
       frame++;
@@ -535,15 +613,53 @@
       if(revealed >= chars.length){
         clearInterval(timer);
         el.textContent = finalText;
+        if(onDone) onDone();
       }
     }, speed);
+  }
+
+  // Ongoing glitch: periodically scrambles a small cluster of characters, then resolves back
+  function glitchLoop(el, finalText){
+    if(prefersReduced) return;
+    var chars = finalText.split('');
+    function burst(){
+      var burstLen = 1 + Math.floor(Math.random()*3);
+      var start = Math.floor(Math.random()*Math.max(1, chars.length - burstLen));
+      var ticks = 6;
+      var tick = 0;
+      var iv = setInterval(function(){
+        tick++;
+        var out = chars.slice();
+        for(var i=start; i<start+burstLen && i<chars.length; i++){
+          if(chars[i] !== ' ') out[i] = GLYPHS[Math.floor(Math.random()*GLYPHS.length)];
+        }
+        el.textContent = out.join('');
+        if(tick >= ticks){
+          clearInterval(iv);
+          el.textContent = finalText;
+          setTimeout(burst, 1800 + Math.random()*3200);
+        }
+      }, 45);
+    }
+    setTimeout(burst, 1500 + Math.random()*2000);
   }
 
   window.addEventListener('DOMContentLoaded', function(){
     var nameEl = document.getElementById('scramble-name');
     var handleEl = document.getElementById('scramble-handle');
-    setTimeout(function(){ scramble(nameEl, nameEl.getAttribute('data-final'), {speed:28, revealEvery:2}); }, 1500);
-    setTimeout(function(){ scramble(handleEl, handleEl.getAttribute('data-final'), {speed:26, revealEvery:1}); }, 2300);
+    var nameFinal = nameEl.getAttribute('data-final');
+    var handleFinal = handleEl.getAttribute('data-final');
+
+    setTimeout(function(){
+      scrambleIn(nameEl, nameFinal, {speed:28, revealEvery:2}, function(){
+        glitchLoop(nameEl, nameFinal);
+      });
+    }, 1500);
+    setTimeout(function(){
+      scrambleIn(handleEl, handleFinal, {speed:26, revealEvery:1}, function(){
+        glitchLoop(handleEl, handleFinal);
+      });
+    }, 2300);
   });
 </script>
 
