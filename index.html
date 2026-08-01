@@ -208,11 +208,19 @@
   .section-head{
     display:flex; align-items:baseline; gap:10px; margin-bottom:26px;
   }
-  .prompt{font-family:var(--mono); color:var(--green); font-size:15px; text-shadow:0 0 14px var(--green-glow);}
+  .prompt{font-family:var(--mono); color:var(--green); font-size:15px; animation:breatheGlow 3.2s ease-in-out infinite;}
   .section-title{
     font-family:var(--mono); font-size:15px; color:var(--text-dim); letter-spacing:.02em;
+    animation:breatheGlowDim 3.2s ease-in-out infinite;
   }
-  hr.rule{border:none; border-top:1px solid var(--border); margin:0 0 26px;}
+  @keyframes breatheGlow{
+    0%,100%{text-shadow:0 0 6px var(--green-glow); opacity:.85;}
+    50%{text-shadow:0 0 18px var(--green-glow), 0 0 30px var(--green-glow); opacity:1;}
+  }
+  @keyframes breatheGlowDim{
+    0%,100%{color:var(--text-dim);}
+    50%{color:var(--text);}
+  }
 
   /* ---- About ---- */
   .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:42px;}
@@ -236,18 +244,14 @@
 
   /* ---- Projects ---- */
   .card{
-    border:1px solid var(--border); border-radius:10px;
-    background:linear-gradient(165deg, var(--bg-panel), #0a0e14);
-    padding:24px 26px; margin-bottom:18px; position:relative;
-    transition:border-color .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
-    box-shadow:0 12px 30px -22px rgba(0,0,0,0.7);
+    border-bottom:1px solid var(--border);
+    padding:22px 0; margin-bottom:2px; position:relative;
+    transition:padding-left .25s var(--ease);
   }
-  .card:hover{
-    border-color:#2c3a48; transform:translateY(-3px);
-    box-shadow:0 24px 50px -22px rgba(0,0,0,0.8), 0 0 0 1px rgba(62,232,159,0.08);
-  }
-  .card.is-featured{border-color:var(--green-dim);}
-  .card.is-featured:hover{box-shadow:0 24px 50px -22px rgba(0,0,0,0.8), 0 0 0 1px var(--green-glow);}
+  .card:last-child{border-bottom:none;}
+  .card:hover{padding-left:6px;}
+  .card.is-featured{border-left:2px solid var(--green-dim); padding-left:16px;}
+  .card.is-featured:hover{padding-left:20px;}
   .card-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;}
   .badge{
     font-family:var(--mono); font-size:10px; letter-spacing:.07em; text-transform:uppercase;
@@ -378,8 +382,45 @@
   body.skip-intro .avatar-row{
     animation:none !important; opacity:1 !important;
   }
+
+  /* ---- Verified badge ---- */
+  .verified-badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    color:var(--green); vertical-align:middle; margin-left:10px; position:relative;
+    filter:drop-shadow(0 0 6px var(--green-glow));
+    cursor:default;
+  }
+  .verified-tip{
+    position:absolute; bottom:130%; left:50%; transform:translateX(-50%) translateY(4px);
+    background:var(--bg-panel-alt); border:1px solid var(--border); color:var(--text-bright);
+    font-family:var(--mono); font-size:11px; padding:5px 10px; border-radius:6px;
+    white-space:nowrap; opacity:0; pointer-events:none;
+    transition:opacity .2s var(--ease), transform .2s var(--ease);
+  }
+  .verified-badge:hover .verified-tip, .verified-badge:focus-visible .verified-tip{
+    opacity:1; transform:translateX(-50%) translateY(0);
+  }
+
+  /* ---- Smirk overlay (on intro "enter") ---- */
+  .smirk-overlay{
+    position:fixed; inset:0; z-index:1000;
+    background:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .smirk-overlay.show{opacity:1;}
+  .smirk-overlay svg{filter:drop-shadow(0 0 24px var(--green-glow));}
+
+  /* ---- Footer date line ---- */
+  .footer-date{display:block; margin-top:6px; color:var(--text-dim); opacity:.75;}
+
+  /* ---- Plain contact section (no terminal chrome) ---- */
+  .contact-plain{font-family:var(--mono);}
+  .contact-plain .contact-line{font-size:14px;}
 </style>
 </head>
+
 <body class="intro-active">
 
 <div class="intro" id="intro">
@@ -399,6 +440,15 @@
       <div class="intro-status" id="introStatus">granting access<span id="introDots">...</span></div>
     </div>
   </div>
+</div>
+
+<div class="smirk-overlay" id="smirkOverlay">
+  <svg width="140" height="140" viewBox="0 0 140 140" fill="none">
+    <circle cx="70" cy="70" r="66" stroke="#1c2530" stroke-width="1.5"/>
+    <path d="M42 58c2-6 8-6 10 0" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M88 56c2-6 8-6 10 0" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M40 90c14 14 46 16 62-4" stroke="#3ee89f" stroke-width="4" stroke-linecap="round"/>
+  </svg>
 </div>
 
 
@@ -429,7 +479,7 @@
         <div class="avatar-row" style="opacity:0; animation:fadeIn .4s var(--ease) forwards; animation-delay:1.45s;">
           <div class="avatar"><img class="avatar-img" src="https://api.dicebear.com/9.x/identicon/svg?seed=thestoicgeek&backgroundColor=0d1218&backgroundType=solid" alt="Benjamin Jaja — placeholder avatar" loading="lazy"></div>
         </div>
-        <h1 class="hero-name"><span class="scramble" id="scramble-name" data-final="Benjamin Tamunoibi Jaja"></span><span class="cursor"></span><br><span class="hero-handle scramble" id="scramble-handle" data-final="@thestoicgeek"></span></h1>
+        <h1 class="hero-name"><span class="scramble" id="scramble-name" data-final="Benjamin Tamunoibi Jaja"></span><span class="verified-badge" tabindex="0" aria-label="Identity verified"><svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M12 2l2.4 1.3 2.7-.3 1.3 2.4 2.4 1.3-.3 2.7 1.3 2.4-1.3 2.4.3 2.7-2.4 1.3-1.3 2.4-2.7-.3L12 22l-2.4-1.3-2.7.3-1.3-2.4-2.4-1.3.3-2.7L2 12l1.3-2.4-.3-2.7 2.4-1.3 1.3-2.4 2.7.3z" fill="currentColor"/><path d="M8.5 12.3l2.3 2.3 4.7-4.9" stroke="#07090c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="verified-tip">identity verified</span></span><span class="cursor"></span><br><span class="hero-handle scramble" id="scramble-handle" data-final="@thestoicgeek"></span></h1>
         <p class="hero-tagline">Final-year B.Sc. Computer Science student building in web development and cybersecurity. I ship complete systems end to end — from database schema to deployment — and I'm currently pointed at intrusion detection and applied ML security work.</p>
 
         <div class="status">
@@ -447,20 +497,6 @@
               <div class="status-value">Web · Security</div>
             </div>
           </div>
-          <div class="feed">
-            <div class="feed-track">
-              <div class="feed-line"><span class="ts">log</span><span class="lvl-info">[INFO]</span> aegis-ids :: ensemble model trained — 99.81% accuracy</div>
-              <div class="feed-line"><span class="ts">log</span><span class="lvl-info">[INFO]</span> bookstore :: deployed to production (infinityfree)</div>
-              <div class="feed-line"><span class="ts">log</span><span class="lvl-warn">[WARN]</span> jarvis :: wake-word recognition tuning in progress</div>
-              <div class="feed-line"><span class="ts">log</span><span class="lvl-info">[INFO]</span> woms :: role-based access verified across 3 roles</div>
-              <div class="feed-line"><span class="ts">log</span><span class="lvl-info">[INFO]</span> profile :: portfolio initialized</div>
-            </div>
-          </div>
-          <div class="live-row">
-            <div class="item"><span class="live-dot"></span><span class="val">online</span></div>
-            <div class="item">local time: <span class="val" id="liveClock">--:--:--</span></div>
-            <div class="item">session: <span class="val" id="liveUptime">00:00:00</span></div>
-          </div>
         </div>
       </div>
     </div>
@@ -468,7 +504,6 @@
 
   <section id="about">
     <div class="section-head"><span class="prompt">$</span><span class="section-title">cat about.md</span></div>
-    <hr class="rule">
     <div class="about-grid">
       <div class="about-text">
         <p>I'm a final-year <strong>B.Sc. Computer Science</strong> student at Rivers State University, Port Harcourt, specializing in <strong>Web Development and Cybersecurity</strong>.</p>
@@ -495,7 +530,6 @@
 
   <section id="projects">
     <div class="section-head"><span class="prompt">$</span><span class="section-title">ls -la ~/projects</span></div>
-    <hr class="rule">
 
     <div class="card is-featured">
       <div class="card-head">
@@ -561,63 +595,19 @@
 
   <section id="contact">
     <div class="section-head"><span class="prompt">$</span><span class="section-title">cat contact.txt</span></div>
-    <hr class="rule">
-    <div class="term contact-term">
-      <div class="term-bar">
-        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-        <span class="term-title">bjaja@rsu:~$ whoami --contact</span>
-      </div>
-      <div class="term-body">
-        <p class="contact-line"><span class="k">&gt;</span> open to internships, freelance builds, and full-time roles in web dev or security.</p>
-        <div class="contact-links">
-          <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener"><span class="arrow">↳</span> github/thestoic-geek</a>
-          <a href="https://x.com/thestoicgeek" target="_blank" rel="noopener"><span class="arrow">↳</span> x/thestoicgeek</a>
-          <a href="mailto:thestoicgeek@protonmail.com"><span class="arrow">↳</span> thestoicgeek@protonmail.com</a>
-        </div>
+    <div class="contact-plain">
+      <p class="contact-line"><span class="k">&gt;</span> open to internships, freelance builds, and full-time roles in web dev or security.</p>
+      <div class="contact-links">
+        <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener"><span class="arrow">↳</span> github/thestoic-geek</a>
+        <a href="https://x.com/thestoicgeek" target="_blank" rel="noopener"><span class="arrow">↳</span> x/thestoicgeek</a>
+        <a href="mailto:thestoicgeek@protonmail.com"><span class="arrow">↳</span> thestoicgeek@protonmail.com</a>
       </div>
     </div>
   </section>
 </div>
 
-<footer>built by <span class="fspan">thestoicgeek</span> · Port Harcourt, Nigeria</footer>
+<footer>built by <span class="fspan">thestoicgeek</span> · Port Harcourt, Nigeria<span class="footer-date" id="footerDate">—</span></footer>
 
-<script>
-  // ---- Intro / boot splash ----
-  (function(){
-    var fill = document.getElementById('introFill');
-    var pct = document.getElementById('introPct');
-    var status = document.getElementById('introStatus');
-    var intro = document.getElementById('intro');
-    var body = document.body;
-    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function finish(){
-      status.textContent = 'access granted';
-      status.classList.add('granted');
-      setTimeout(function(){
-        intro.classList.add('hide');
-        body.classList.remove('intro-active');
-        setTimeout(function(){ intro.style.display = 'none'; }, 600);
-      }, 350);
-    }
-
-    if(prefersReduced){
-      fill.style.width = '100%';
-      pct.textContent = '100%';
-      finish();
-      return;
-    }
-
-    var p = 0;
-    var iv = setInterval(function(){
-      p += 3 + Math.random()*7;
-      if(p >= 100){ p = 100; clearInterval(iv); }
-      fill.style.width = p + '%';
-      pct.textContent = Math.floor(p) + '%';
-      if(p >= 100){ finish(); }
-    }, 65);
-  })();
-</script>
 <script>
   // ---- Intro / boot splash (choice-driven) ----
   (function(){
@@ -638,21 +628,27 @@
       setTimeout(function(){ intro.style.display = 'none'; }, 600);
     }
 
+    var smirk = document.getElementById('smirkOverlay');
+
     function runProgress(){
       introChoice.style.display = 'none';
-      introProgress.style.display = 'flex';
-      var p = 0;
-      var iv = setInterval(function(){
-        p += 4 + Math.random()*8;
-        if(p >= 100){ p = 100; clearInterval(iv); }
-        fill.style.width = p + '%';
-        pct.textContent = Math.floor(p) + '%';
-        if(p >= 100){
-          status.textContent = 'access granted';
-          status.classList.add('granted');
-          setTimeout(closeIntro, 400);
-        }
-      }, 55);
+      smirk.classList.add('show');
+      setTimeout(function(){
+        smirk.classList.remove('show');
+        introProgress.style.display = 'flex';
+        var p = 0;
+        var iv = setInterval(function(){
+          p += 4 + Math.random()*8;
+          if(p >= 100){ p = 100; clearInterval(iv); }
+          fill.style.width = p + '%';
+          pct.textContent = Math.floor(p) + '%';
+          if(p >= 100){
+            status.textContent = 'access granted';
+            status.classList.add('granted');
+            setTimeout(closeIntro, 400);
+          }
+        }, 55);
+      }, 550);
     }
 
     if(prefersReduced){
@@ -667,21 +663,15 @@
     }
   })();
 
-  // ---- Live clock + session uptime ----
+  // ---- Live ticking date (footer) ----
   (function(){
-    var clockEl = document.getElementById('liveClock');
-    var uptimeEl = document.getElementById('liveUptime');
-    if(!clockEl || !uptimeEl) return;
-    var start = Date.now();
-    function pad(n){ return n < 10 ? '0'+n : ''+n; }
+    var el = document.getElementById('footerDate');
+    if(!el) return;
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     function tick(){
       var now = new Date();
-      clockEl.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
-      var elapsed = Math.floor((Date.now() - start) / 1000);
-      var h = Math.floor(elapsed / 3600);
-      var m = Math.floor((elapsed % 3600) / 60);
-      var s = elapsed % 60;
-      uptimeEl.textContent = pad(h) + ':' + pad(m) + ':' + pad(s);
+      el.textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ' ' + now.getFullYear();
     }
     tick();
     setInterval(tick, 1000);
