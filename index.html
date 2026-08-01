@@ -124,21 +124,36 @@
   }
   .boot-line .ok{color:var(--green);}
   .boot-line .tag{color:var(--amber);}
+
+  .hero-top{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:20px; flex-wrap:wrap; margin:24px 0 0;
+  }
+  .hero-identity{display:flex; align-items:center; gap:14px;}
+  .hero-id-text{display:flex; flex-direction:column; gap:3px;}
   .hero-name{
     font-family:var(--mono);
-    font-size:clamp(32px, 5.6vw, 48px);
+    font-size:clamp(19px, 3vw, 24px);
     font-weight:700;
-    letter-spacing:-.01em;
+    letter-spacing:-.005em;
     color:var(--text-bright);
-    margin:24px 0 6px;
-    line-height:1.15;
-    opacity:0; animation:fadeIn .5s var(--ease) forwards;
-    animation-delay:1.5s;
+    margin:0;
+    line-height:1.2;
+    display:flex; align-items:center; gap:8px;
   }
   .hero-handle{
-    color:var(--green); font-weight:500;
-    text-shadow:0 0 22px var(--green-glow);
+    font-family:var(--mono); font-size:13px;
+    color:var(--text-dim); font-weight:500;
   }
+  .hero-live{
+    display:flex; flex-direction:column; align-items:flex-end; gap:6px;
+    font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
+  }
+  .live-online{display:flex; align-items:center; gap:6px; color:var(--green); font-size:11.5px;}
+  .live-dot{width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); animation:pulse 2s ease-in-out infinite;}
+  .live-clock{color:var(--text-bright); font-size:13px; font-weight:600;}
+  .live-date{color:var(--text-dim); font-size:11.5px;}
+
   .cursor{
     display:inline-block; width:10px; height:1.05em; background:var(--green);
     vertical-align:text-bottom; margin-left:3px; border-radius:1px;
@@ -147,7 +162,7 @@
   }
   .hero-tagline{
     font-family:var(--sans); font-size:16.5px; color:var(--text);
-    max-width:62ch; margin:16px 0 0; line-height:1.7;
+    max-width:62ch; margin:22px 0 0; line-height:1.7;
     opacity:0; animation:fadeIn .5s var(--ease) forwards; animation-delay:1.85s;
   }
   @keyframes fadeIn{to{opacity:1;}}
@@ -208,18 +223,14 @@
   .section-head{
     display:flex; align-items:baseline; gap:10px; margin-bottom:26px;
   }
-  .prompt{font-family:var(--mono); color:var(--green); font-size:15px; animation:breatheGlow 3.2s ease-in-out infinite;}
+  .prompt{font-family:var(--mono); color:var(--green); font-size:15px;}
   .section-title{
-    font-family:var(--mono); font-size:15px; color:var(--text-dim); letter-spacing:.02em;
-    animation:breatheGlowDim 3.2s ease-in-out infinite;
+    font-family:var(--mono); font-size:15px; color:var(--text-bright); letter-spacing:.02em;
+    animation:breatheGlow 3.2s ease-in-out infinite;
   }
   @keyframes breatheGlow{
-    0%,100%{text-shadow:0 0 6px var(--green-glow); opacity:.85;}
-    50%{text-shadow:0 0 18px var(--green-glow), 0 0 30px var(--green-glow); opacity:1;}
-  }
-  @keyframes breatheGlowDim{
-    0%,100%{color:var(--text-dim);}
-    50%{color:var(--text);}
+    0%,100%{text-shadow:0 0 6px var(--green-glow); color:var(--text-dim);}
+    50%{text-shadow:0 0 16px var(--green-glow), 0 0 26px var(--green-glow); color:var(--text-bright);}
   }
 
   /* ---- About ---- */
@@ -309,7 +320,9 @@
   }
   .avatar::before{top:-1px; left:-1px; border-right:none; border-bottom:none; border-radius:6px 0 0 0;}
   .avatar::after{bottom:-1px; right:-1px; border-left:none; border-top:none; border-radius:0 0 6px 0;}
-  .avatar-row{display:flex; align-items:center; gap:18px; margin-bottom:6px;}
+  .avatar-sm{width:52px; height:52px; border-radius:12px;}
+  .avatar-sm::before, .avatar-sm::after{width:8px; height:8px;}
+  .avatar-sm .avatar-img{border-radius:10px;}
   .nav-brand-row{display:flex; align-items:center; gap:9px;}
   .avatar-mini{
     width:24px; height:24px; border-radius:6px; font-size:9px;
@@ -362,15 +375,6 @@
   .intro-bar-fill{height:100%; width:0%; background:var(--green); box-shadow:0 0 10px var(--green-glow); transition:width .1s linear;}
   .intro-pct{font-size:11px; color:var(--text-dim);}
 
-  /* ---- Live status row ---- */
-  .live-row{
-    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
-    font-family:var(--mono); font-size:12px; color:var(--text-dim); margin-top:14px;
-  }
-  .live-row .item{display:flex; align-items:center; gap:6px;}
-  .live-dot{width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); animation:pulse 2s ease-in-out infinite;}
-  .live-row .val{color:var(--text-bright);}
-
   /* ---- Real avatar image (hero) ---- */
   .avatar-img{width:100%; height:100%; border-radius:12px; object-fit:cover; display:block;}
 
@@ -379,14 +383,14 @@
   body.skip-intro .hero-name,
   body.skip-intro .hero-tagline,
   body.skip-intro .status,
-  body.skip-intro .avatar-row{
+  body.skip-intro .hero-top{
     animation:none !important; opacity:1 !important;
   }
 
   /* ---- Verified badge ---- */
   .verified-badge{
     display:inline-flex; align-items:center; justify-content:center;
-    color:var(--green); vertical-align:middle; margin-left:10px; position:relative;
+    color:var(--green); position:relative;
     filter:drop-shadow(0 0 6px var(--green-glow));
     cursor:default;
   }
@@ -411,9 +415,6 @@
   }
   .smirk-overlay.show{opacity:1;}
   .smirk-overlay svg{filter:drop-shadow(0 0 24px var(--green-glow));}
-
-  /* ---- Footer date line ---- */
-  .footer-date{display:block; margin-top:6px; color:var(--text-dim); opacity:.75;}
 
   /* ---- Plain contact section (no terminal chrome) ---- */
   .contact-plain{font-family:var(--mono);}
@@ -476,10 +477,21 @@
         <p class="boot-line" style="animation-delay:.9s">mounting projects<span class="ok"> [4 found]</span></p>
         <p class="boot-line" style="animation-delay:1.3s">status: <span class="ok">ready</span></p>
 
-        <div class="avatar-row" style="opacity:0; animation:fadeIn .4s var(--ease) forwards; animation-delay:1.45s;">
-          <div class="avatar"><img class="avatar-img" src="https://api.dicebear.com/9.x/identicon/svg?seed=thestoicgeek&backgroundColor=0d1218&backgroundType=solid" alt="Benjamin Jaja — placeholder avatar" loading="lazy"></div>
+        <div class="hero-top" style="opacity:0; animation:fadeIn .5s var(--ease) forwards; animation-delay:1.45s;">
+          <div class="hero-identity">
+            <div class="avatar avatar-sm"><img class="avatar-img" src="https://api.dicebear.com/9.x/identicon/svg?seed=thestoicgeek&backgroundColor=0d1218&backgroundType=solid" alt="Benjamin Jaja — placeholder avatar" loading="lazy"></div>
+            <div class="hero-id-text">
+              <h1 class="hero-name"><span class="scramble" id="scramble-name" data-final="Benjamin Tamunoibi Jaja"></span><span class="verified-badge" tabindex="0" aria-label="Identity verified"><svg viewBox="0 0 24 24" width="17" height="17" fill="none"><path d="M12 2l2.4 1.3 2.7-.3 1.3 2.4 2.4 1.3-.3 2.7 1.3 2.4-1.3 2.4.3 2.7-2.4 1.3-1.3 2.4-2.7-.3L12 22l-2.4-1.3-2.7.3-1.3-2.4-2.4-1.3.3-2.7L2 12l1.3-2.4-.3-2.7 2.4-1.3 1.3-2.4 2.7.3z" fill="currentColor"/><path d="M8.5 12.3l2.3 2.3 4.7-4.9" stroke="#07090c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="verified-tip">identity verified</span></span></h1>
+              <div class="hero-handle scramble" id="scramble-handle" data-final="@thestoicgeek"></div>
+            </div>
+          </div>
+          <div class="hero-live">
+            <div class="live-online"><span class="live-dot"></span>online</div>
+            <div class="live-clock" id="liveClock">--:--:--</div>
+            <div class="live-date" id="liveDate">—</div>
+          </div>
         </div>
-        <h1 class="hero-name"><span class="scramble" id="scramble-name" data-final="Benjamin Tamunoibi Jaja"></span><span class="verified-badge" tabindex="0" aria-label="Identity verified"><svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M12 2l2.4 1.3 2.7-.3 1.3 2.4 2.4 1.3-.3 2.7 1.3 2.4-1.3 2.4.3 2.7-2.4 1.3-1.3 2.4-2.7-.3L12 22l-2.4-1.3-2.7.3-1.3-2.4-2.4-1.3.3-2.7L2 12l1.3-2.4-.3-2.7 2.4-1.3 1.3-2.4 2.7.3z" fill="currentColor"/><path d="M8.5 12.3l2.3 2.3 4.7-4.9" stroke="#07090c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="verified-tip">identity verified</span></span><span class="cursor"></span><br><span class="hero-handle scramble" id="scramble-handle" data-final="@thestoicgeek"></span></h1>
+
         <p class="hero-tagline">Final-year B.Sc. Computer Science student building in web development and cybersecurity. I ship complete systems end to end — from database schema to deployment — and I'm currently pointed at intrusion detection and applied ML security work.</p>
 
         <div class="status">
@@ -606,7 +618,7 @@
   </section>
 </div>
 
-<footer>built by <span class="fspan">thestoicgeek</span> · Port Harcourt, Nigeria<span class="footer-date" id="footerDate">—</span></footer>
+<footer>built by <span class="fspan">thestoicgeek</span> · Port Harcourt, Nigeria</footer>
 
 <script>
   // ---- Intro / boot splash (choice-driven) ----
@@ -663,15 +675,18 @@
     }
   })();
 
-  // ---- Live ticking date (footer) ----
+  // ---- Live clock + date (hero) ----
   (function(){
-    var el = document.getElementById('footerDate');
-    if(!el) return;
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var clockEl = document.getElementById('liveClock');
+    var dateEl = document.getElementById('liveDate');
+    if(!clockEl || !dateEl) return;
+    var days = ['sun','mon','tue','wed','thu','fri','sat'];
+    var months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+    function pad(n){ return n < 10 ? '0'+n : ''+n; }
     function tick(){
       var now = new Date();
-      el.textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ' ' + now.getFullYear();
+      clockEl.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+      dateEl.textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate();
     }
     tick();
     setInterval(tick, 1000);
