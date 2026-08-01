@@ -328,7 +328,7 @@
     transition:opacity .55s var(--ease), transform .55s var(--ease);
   }
   .intro.hide{opacity:0; transform:scale(1.04); pointer-events:none;}
-  .intro-inner{display:flex; flex-direction:column; align-items:center; gap:18px; font-family:var(--mono);}
+  .intro-inner{display:flex; flex-direction:column; align-items:center; gap:16px; font-family:var(--mono); padding:24px;}
   .intro-avatar{
     width:64px; height:64px; position:relative;
     display:flex; align-items:center; justify-content:center;
@@ -338,13 +338,46 @@
     box-shadow:0 14px 34px -18px rgba(0,0,0,0.8);
     text-shadow:0 0 16px var(--green-glow);
     animation:introPulse 1.6s ease-in-out infinite;
+    margin-bottom:6px;
   }
   @keyframes introPulse{0%,100%{box-shadow:0 14px 34px -18px rgba(0,0,0,0.8), 0 0 0 0 var(--green-glow);} 50%{box-shadow:0 14px 34px -18px rgba(0,0,0,0.8), 0 0 22px 2px var(--green-glow);}}
+  .intro-headline{font-size:19px; color:var(--text-bright); letter-spacing:-.005em;}
+  .intro-sub{font-size:14px; color:var(--text-dim); margin-top:-8px;}
+  .intro-choices{display:flex; gap:18px; margin-top:8px;}
+  .intro-btn{
+    font-family:var(--mono); font-size:14px; background:none; border:none; cursor:pointer;
+    color:var(--green); padding:6px 4px; transition:color .2s var(--ease), transform .2s var(--ease), text-shadow .2s var(--ease);
+  }
+  .intro-btn:hover{transform:translateY(-1px); text-shadow:0 0 14px var(--green-glow);}
+  .intro-btn.ghost{color:var(--text-dim);}
+  .intro-btn.ghost:hover{color:var(--text);}
+  .intro-progress{display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:2px;}
   .intro-status{font-size:12.5px; color:var(--text-dim); letter-spacing:.03em; min-height:16px;}
   .intro-status.granted{color:var(--green);}
   .intro-bar{width:200px; height:2px; background:var(--border-soft); border-radius:2px; overflow:hidden;}
   .intro-bar-fill{height:100%; width:0%; background:var(--green); box-shadow:0 0 10px var(--green-glow); transition:width .1s linear;}
   .intro-pct{font-size:11px; color:var(--text-dim);}
+
+  /* ---- Live status row ---- */
+  .live-row{
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    font-family:var(--mono); font-size:12px; color:var(--text-dim); margin-top:14px;
+  }
+  .live-row .item{display:flex; align-items:center; gap:6px;}
+  .live-dot{width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); animation:pulse 2s ease-in-out infinite;}
+  .live-row .val{color:var(--text-bright);}
+
+  /* ---- Real avatar image (hero) ---- */
+  .avatar-img{width:100%; height:100%; border-radius:12px; object-fit:cover; display:block;}
+
+  /* ---- Skip-intro: force all entrance animations to their end state ---- */
+  body.skip-intro .boot-line,
+  body.skip-intro .hero-name,
+  body.skip-intro .hero-tagline,
+  body.skip-intro .status,
+  body.skip-intro .avatar-row{
+    animation:none !important; opacity:1 !important;
+  }
 </style>
 </head>
 <body class="intro-active">
@@ -352,9 +385,19 @@
 <div class="intro" id="intro">
   <div class="intro-inner">
     <div class="intro-avatar">BJ</div>
-    <div class="intro-status" id="introStatus">initializing session<span id="introDots">...</span></div>
-    <div class="intro-bar"><div class="intro-bar-fill" id="introFill"></div></div>
-    <div class="intro-pct" id="introPct">0%</div>
+    <div id="introChoice">
+      <div class="intro-headline">welcome to my construct.</div>
+      <div class="intro-sub">come in?</div>
+      <div class="intro-choices">
+        <button class="intro-btn" id="introEnter">[ enter ]</button>
+        <button class="intro-btn ghost" id="introSkip">[ skip ]</button>
+      </div>
+    </div>
+    <div class="intro-progress" id="introProgress" style="display:none;">
+      <div class="intro-bar"><div class="intro-bar-fill" id="introFill"></div></div>
+      <div class="intro-pct" id="introPct">0%</div>
+      <div class="intro-status" id="introStatus">granting access<span id="introDots">...</span></div>
+    </div>
   </div>
 </div>
 
@@ -384,7 +427,7 @@
         <p class="boot-line" style="animation-delay:1.3s">status: <span class="ok">ready</span></p>
 
         <div class="avatar-row" style="opacity:0; animation:fadeIn .4s var(--ease) forwards; animation-delay:1.45s;">
-          <div class="avatar">BJ</div>
+          <div class="avatar"><img class="avatar-img" src="https://api.dicebear.com/9.x/identicon/svg?seed=thestoicgeek&backgroundColor=0d1218&backgroundType=solid" alt="Benjamin Jaja — placeholder avatar" loading="lazy"></div>
         </div>
         <h1 class="hero-name"><span class="scramble" id="scramble-name" data-final="Benjamin Tamunoibi Jaja"></span><span class="cursor"></span><br><span class="hero-handle scramble" id="scramble-handle" data-final="@thestoicgeek"></span></h1>
         <p class="hero-tagline">Final-year B.Sc. Computer Science student building in web development and cybersecurity. I ship complete systems end to end — from database schema to deployment — and I'm currently pointed at intrusion detection and applied ML security work.</p>
@@ -412,6 +455,11 @@
               <div class="feed-line"><span class="ts">log</span><span class="lvl-info">[INFO]</span> woms :: role-based access verified across 3 roles</div>
               <div class="feed-line"><span class="ts">log</span><span class="lvl-info">[INFO]</span> profile :: portfolio initialized</div>
             </div>
+          </div>
+          <div class="live-row">
+            <div class="item"><span class="live-dot"></span><span class="val">online</span></div>
+            <div class="item">local time: <span class="val" id="liveClock">--:--:--</span></div>
+            <div class="item">session: <span class="val" id="liveUptime">00:00:00</span></div>
           </div>
         </div>
       </div>
@@ -571,6 +619,74 @@
   })();
 </script>
 <script>
+  // ---- Intro / boot splash (choice-driven) ----
+  (function(){
+    var introChoice = document.getElementById('introChoice');
+    var introProgress = document.getElementById('introProgress');
+    var fill = document.getElementById('introFill');
+    var pct = document.getElementById('introPct');
+    var status = document.getElementById('introStatus');
+    var intro = document.getElementById('intro');
+    var enterBtn = document.getElementById('introEnter');
+    var skipBtn = document.getElementById('introSkip');
+    var body = document.body;
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function closeIntro(){
+      intro.classList.add('hide');
+      body.classList.remove('intro-active');
+      setTimeout(function(){ intro.style.display = 'none'; }, 600);
+    }
+
+    function runProgress(){
+      introChoice.style.display = 'none';
+      introProgress.style.display = 'flex';
+      var p = 0;
+      var iv = setInterval(function(){
+        p += 4 + Math.random()*8;
+        if(p >= 100){ p = 100; clearInterval(iv); }
+        fill.style.width = p + '%';
+        pct.textContent = Math.floor(p) + '%';
+        if(p >= 100){
+          status.textContent = 'access granted';
+          status.classList.add('granted');
+          setTimeout(closeIntro, 400);
+        }
+      }, 55);
+    }
+
+    if(prefersReduced){
+      closeIntro();
+    } else {
+      enterBtn.addEventListener('click', runProgress);
+      skipBtn.addEventListener('click', function(){
+        body.classList.add('skip-intro');
+        window.__introSkipped = true;
+        closeIntro();
+      });
+    }
+  })();
+
+  // ---- Live clock + session uptime ----
+  (function(){
+    var clockEl = document.getElementById('liveClock');
+    var uptimeEl = document.getElementById('liveUptime');
+    if(!clockEl || !uptimeEl) return;
+    var start = Date.now();
+    function pad(n){ return n < 10 ? '0'+n : ''+n; }
+    function tick(){
+      var now = new Date();
+      clockEl.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+      var elapsed = Math.floor((Date.now() - start) / 1000);
+      var h = Math.floor(elapsed / 3600);
+      var m = Math.floor((elapsed % 3600) / 60);
+      var s = elapsed % 60;
+      uptimeEl.textContent = pad(h) + ':' + pad(m) + ':' + pad(s);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
   var sections = document.querySelectorAll('section');
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
@@ -650,12 +766,23 @@
     var nameFinal = nameEl.getAttribute('data-final');
     var handleFinal = handleEl.getAttribute('data-final');
 
+    function resolveInstant(){
+      nameEl.textContent = nameFinal;
+      handleEl.textContent = handleFinal;
+      glitchLoop(nameEl, nameFinal);
+      glitchLoop(handleEl, handleFinal);
+    }
+
+    if(window.__introSkipped){ resolveInstant(); return; }
+
     setTimeout(function(){
+      if(window.__introSkipped){ nameEl.textContent = nameFinal; glitchLoop(nameEl, nameFinal); return; }
       scrambleIn(nameEl, nameFinal, {speed:28, revealEvery:2}, function(){
         glitchLoop(nameEl, nameFinal);
       });
     }, 1500);
     setTimeout(function(){
+      if(window.__introSkipped){ handleEl.textContent = handleFinal; glitchLoop(handleEl, handleFinal); return; }
       scrambleIn(handleEl, handleFinal, {speed:26, revealEvery:1}, function(){
         glitchLoop(handleEl, handleFinal);
       });
