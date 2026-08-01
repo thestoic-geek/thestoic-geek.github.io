@@ -225,33 +225,41 @@
   }
   .prompt{font-family:var(--mono); color:var(--green); font-size:15px;}
   .section-title{
-    font-family:var(--mono); font-size:15px; color:var(--text-bright); letter-spacing:.02em;
-    animation:breatheGlow 3.2s ease-in-out infinite;
-  }
-  @keyframes breatheGlow{
-    0%,100%{text-shadow:0 0 6px var(--green-glow); color:var(--text-dim);}
-    50%{text-shadow:0 0 16px var(--green-glow), 0 0 26px var(--green-glow); color:var(--text-bright);}
+    font-family:var(--mono); font-size:15px; color:var(--text-dim); letter-spacing:.02em;
   }
 
   /* ---- About ---- */
-  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:42px;}
-  @media (max-width:720px){.about-grid{grid-template-columns:1fr;}}
+  .about-text{max-width:68ch;}
   .about-text p{margin:0 0 15px; color:var(--text); font-size:15.5px;}
   .about-text strong{color:var(--text-bright); font-weight:600;}
-  .stack-list{list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:13px;}
+
+  /* ---- Education ---- */
+  .edu-box{
+    max-width:420px; padding:16px 18px; border:1px solid var(--border); border-radius:10px;
+    background:linear-gradient(180deg, var(--bg-panel), var(--bg-panel-alt));
+    font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
+    box-shadow:0 12px 30px -18px rgba(0,0,0,0.6);
+  }
+  .edu-box b{color:var(--text-bright); font-family:var(--sans); display:block; font-size:14.5px; margin-bottom:4px;}
+
+  /* ---- Roles ---- */
+  .plain-list{list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:14px; max-width:480px;}
+  .plain-list li{
+    padding:8px 0; border-bottom:1px dashed var(--border); color:var(--text);
+    transition:padding-left .2s var(--ease);
+  }
+  .plain-list li::before{content:'↳ '; color:var(--green);}
+  .plain-list li:hover{padding-left:4px;}
+  .plain-list li:last-child{border-bottom:none;}
+
+  /* ---- Stack ---- */
+  .stack-list{list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:13px; max-width:480px;}
   .stack-list li{
     display:flex; justify-content:space-between; padding:8.5px 0; border-bottom:1px dashed var(--border);
     color:var(--text-dim); transition:padding-left .2s var(--ease);
   }
   .stack-list li:hover{padding-left:4px; color:var(--text);}
   .stack-list li span:last-child{color:var(--text);}
-  .edu-box{
-    margin-top:20px; padding:16px 18px; border:1px solid var(--border); border-radius:10px;
-    background:linear-gradient(180deg, var(--bg-panel), var(--bg-panel-alt));
-    font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
-    box-shadow:0 12px 30px -18px rgba(0,0,0,0.6);
-  }
-  .edu-box b{color:var(--text-bright); font-family:var(--sans); display:block; font-size:14.5px; margin-bottom:4px;}
 
   /* ---- Projects ---- */
   .card{
@@ -271,7 +279,10 @@
   .badge.featured{color:var(--green); text-shadow:0 0 10px var(--green-glow);}
   .badge.web{color:var(--amber);}
   .badge.ai{color:#93a4f7;}
-  .card-title{font-family:var(--mono); font-size:17px; font-weight:600; color:var(--text-bright); margin:0; letter-spacing:-.005em;}
+  .card-title{
+    font-family:var(--mono); font-size:17px; font-weight:600; margin:0; letter-spacing:-.005em;
+    color:var(--green); text-shadow:0 0 12px var(--green-glow);
+  }
   .card-desc{font-size:14.8px; color:var(--text); margin:9px 0 14px;}
   .card-meta{
     font-family:var(--mono); font-size:12px; color:var(--text-dim);
@@ -379,10 +390,8 @@
   .avatar-img{width:100%; height:100%; border-radius:12px; object-fit:cover; display:block;}
 
   /* ---- Skip-intro: force all entrance animations to their end state ---- */
-  body.skip-intro .boot-line,
   body.skip-intro .hero-name,
   body.skip-intro .hero-tagline,
-  body.skip-intro .status,
   body.skip-intro .hero-top{
     animation:none !important; opacity:1 !important;
   }
@@ -458,6 +467,9 @@
     <a class="nav-brand nav-brand-row" href="#"><span class="avatar-mini">BJ</span>thestoicgeek</a>
     <ul class="nav-links">
       <li><a href="#about">about</a></li>
+      <li><a href="#education">education</a></li>
+      <li><a href="#roles">roles</a></li>
+      <li><a href="#stack">stack</a></li>
       <li><a href="#projects">projects</a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
@@ -472,14 +484,9 @@
         <span class="term-title">bjaja@rsu:~$ ./init.sh</span>
       </div>
       <div class="term-body">
-        <p class="boot-line" style="animation-delay:.1s">booting profile<span class="ok"> [ok]</span></p>
-        <p class="boot-line" style="animation-delay:.5s">loading identity<span class="tag"> :: web dev / cybersecurity</span></p>
-        <p class="boot-line" style="animation-delay:.9s">mounting projects<span class="ok"> [4 found]</span></p>
-        <p class="boot-line" style="animation-delay:1.3s">status: <span class="ok">ready</span></p>
-
-        <div class="hero-top" style="opacity:0; animation:fadeIn .5s var(--ease) forwards; animation-delay:1.45s;">
+        <div class="hero-top">
           <div class="hero-identity">
-            <div class="avatar avatar-sm"><img class="avatar-img" src="https://api.dicebear.com/9.x/identicon/svg?seed=thestoicgeek&backgroundColor=0d1218&backgroundType=solid" alt="Benjamin Jaja — placeholder avatar" loading="lazy"></div>
+            <div class="avatar avatar-sm"><img class="avatar-img" src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=thestoicgeek&backgroundColor=0d1218&backgroundType=solid" alt="Benjamin Jaja — placeholder avatar" loading="lazy"></div>
             <div class="hero-id-text">
               <h1 class="hero-name"><span class="scramble" id="scramble-name" data-final="Benjamin Tamunoibi Jaja"></span><span class="verified-badge" tabindex="0" aria-label="Identity verified"><svg viewBox="0 0 24 24" width="17" height="17" fill="none"><path d="M12 2l2.4 1.3 2.7-.3 1.3 2.4 2.4 1.3-.3 2.7 1.3 2.4-1.3 2.4.3 2.7-2.4 1.3-1.3 2.4-2.7-.3L12 22l-2.4-1.3-2.7.3-1.3-2.4-2.4-1.3.3-2.7L2 12l1.3-2.4-.3-2.7 2.4-1.3 1.3-2.4 2.7.3z" fill="currentColor"/><path d="M8.5 12.3l2.3 2.3 4.7-4.9" stroke="#07090c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="verified-tip">identity verified</span></span></h1>
               <div class="hero-handle scramble" id="scramble-handle" data-final="@thestoicgeek"></div>
@@ -491,53 +498,48 @@
             <div class="live-date" id="liveDate">—</div>
           </div>
         </div>
-
-        <p class="hero-tagline">Final-year B.Sc. Computer Science student building in web development and cybersecurity. I ship complete systems end to end — from database schema to deployment — and I'm currently pointed at intrusion detection and applied ML security work.</p>
-
-        <div class="status">
-          <div class="status-grid">
-            <div class="status-cell">
-              <div class="status-label">Availability</div>
-              <div class="status-value"><span class="pill">open to work</span></div>
-            </div>
-            <div class="status-cell">
-              <div class="status-label">Base</div>
-              <div class="status-value">Port Harcourt, NG</div>
-            </div>
-            <div class="status-cell">
-              <div class="status-label">Focus</div>
-              <div class="status-value">Web · Security</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 
   <section id="about">
     <div class="section-head"><span class="prompt">$</span><span class="section-title">cat about.md</span></div>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>I'm a final-year <strong>B.Sc. Computer Science</strong> student at Rivers State University, Port Harcourt, specializing in <strong>Web Development and Cybersecurity</strong>.</p>
-        <p>Alongside coursework, I freelance — building complete software systems and academic documentation for coursemates, from database design through to deployment. It's how I've stayed sharp on shipping real, working software rather than just class exercises.</p>
-        <p>My main focus right now is applied ML for network security — <strong>AEGIS-IDS</strong>, an intrusion detection system I built end to end, is the project I'm most proud of. I'm building toward a career in cybersecurity and actively studying penetration testing fundamentals alongside it.</p>
-      </div>
-      <div>
-        <ul class="stack-list">
-          <li><span>Languages</span><span>PHP · Python · JavaScript</span></li>
-          <li><span>Backend</span><span>Flask · native PHP</span></li>
-          <li><span>Database</span><span>MySQL (PDO)</span></li>
-          <li><span>ML / Data</span><span>scikit-learn · SHAP · LIME</span></li>
-          <li><span>Security</span><span>IDS design · pentest fundamentals</span></li>
-          <li><span>Tools</span><span>Git · XAMPP · VirtualBox</span></li>
-        </ul>
-        <div class="edu-box">
-          <b>Rivers State University</b>
-          B.Sc. Computer Science — final year<br>
-          Specialization: Web Development &amp; Cybersecurity
-        </div>
-      </div>
+    <div class="about-text">
+      <p>I'm a final-year <strong>B.Sc. Computer Science</strong> student at Rivers State University, Port Harcourt, specializing in <strong>Web Development and Cybersecurity</strong>.</p>
+      <p>Alongside coursework, I freelance — building complete software systems and academic documentation for coursemates, from database design through to deployment. It's how I've stayed sharp on shipping real, working software rather than just class exercises.</p>
+      <p>My main focus right now is applied ML for network security — <strong>AEGIS-IDS</strong>, an intrusion detection system I built end to end, is the project I'm most proud of. I'm building toward a career in cybersecurity and actively studying penetration testing fundamentals alongside it.</p>
     </div>
+  </section>
+
+  <section id="education">
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat education.md</span></div>
+    <div class="edu-box">
+      <b>Rivers State University</b>
+      B.Sc. Computer Science — final year
+    </div>
+  </section>
+
+  <section id="roles">
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">ls roles/</span></div>
+    <ul class="plain-list">
+      <li>Web Developer</li>
+      <li>Backend Developer</li>
+      <li>Cybersecurity Analyst</li>
+      <li>Junior Penetration Tester</li>
+      <li>Software Engineer — Intern/Junior</li>
+    </ul>
+  </section>
+
+  <section id="stack">
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat stack.md</span></div>
+    <ul class="stack-list">
+      <li><span>Languages</span><span>PHP · Python · JavaScript</span></li>
+      <li><span>Backend</span><span>Flask · native PHP</span></li>
+      <li><span>Database</span><span>MySQL (PDO)</span></li>
+      <li><span>ML / Data</span><span>scikit-learn · SHAP · LIME</span></li>
+      <li><span>Security</span><span>IDS design · pentest fundamentals</span></li>
+      <li><span>Tools</span><span>Git · XAMPP · VirtualBox</span></li>
+    </ul>
   </section>
 
   <section id="projects">
