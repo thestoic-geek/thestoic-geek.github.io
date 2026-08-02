@@ -473,13 +473,19 @@
 </div>
 
 <div class="smirk-overlay" id="smirkOverlay">
-  <!--
-    DROP YOUR OWN SVG HERE.
-    Replace the single <svg>...</svg> block below with your drawing.
-    Keep width="150" height="150" (or adjust to taste) so it stays centered.
-    Use stroke="#3ee89f" / fill="#3ee89f" to match the site's green accent, or any color you like.
-  -->
-  <svg width="150" height="150" viewBox="0 0 150 150" fill="none">
+  <svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <ellipse cx="42" cy="32" rx="5.5" ry="7.5" fill="#3ee89f" filter="url(#glow)"/>
+    <ellipse cx="108" cy="32" rx="5.5" ry="7.5" fill="#3ee89f" filter="url(#glow)"/>
+    <path d="M26,62 C52,74 98,74 124,62 C95,122 55,122 26,62 Z" fill="#050708" stroke="#3ee89f" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M27.2,62.5 L35.3,65.5 L31.1,74.1 Z M38.0,66.3 L47.1,68.5 L42.5,77.5 Z M50.1,69.0 L60.0,70.3 L55.0,79.7 Z M63.2,70.6 L73.4,71.0 L68.3,80.9 Z M76.6,71.0 L86.8,70.6 L81.7,80.9 Z M90.0,70.3 L99.9,69.0 L95.0,79.7 Z M102.9,68.5 L112.0,66.3 L107.5,77.5 Z M114.7,65.5 L122.8,62.5 L118.9,74.1 Z" fill="#eafff5"/>
+    <path d="M26,62 Q16,56 20,46" stroke="#3ee89f" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <path d="M124,62 Q134,56 130,46" stroke="#3ee89f" stroke-width="2.2" fill="none" stroke-linecap="round"/>
   </svg>
 </div>
 
