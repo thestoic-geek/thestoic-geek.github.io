@@ -245,6 +245,7 @@
   .about-text{max-width:68ch;}
   .about-text p{margin:0 0 15px; color:var(--text); font-size:15.5px;}
   .about-text strong{color:var(--text-bright); font-weight:600;}
+  .about-lede{font-size:18px; color:var(--text-bright); font-weight:500; line-height:1.6; margin-bottom:20px;}
 
   /* ---- Education ---- */
   .edu-box{
@@ -356,9 +357,9 @@
   }
   .avatar::before{top:-1px; left:-1px; border-right:none; border-bottom:none; border-radius:6px 0 0 0;}
   .avatar::after{bottom:-1px; right:-1px; border-left:none; border-top:none; border-radius:0 0 6px 0;}
-  .avatar-sm{width:88px; height:88px; border-radius:16px;}
-  .avatar-sm::before, .avatar-sm::after{width:10px; height:10px;}
-  .avatar-sm .avatar-img{border-radius:10px;}
+  .avatar-sm{width:60px; height:60px; border-radius:13px;}
+  .avatar-sm::before, .avatar-sm::after{width:9px; height:9px;}
+  .avatar-sm .avatar-img{border-radius:12px;}
   .nav-brand-row{display:flex; align-items:center; gap:9px;}
   .avatar-mini{
     width:24px; height:24px; border-radius:6px; font-size:9px;
@@ -523,11 +524,11 @@
   <section id="about">
     <div class="section-head"><span class="prompt">$</span><span class="section-title">cat about</span></div>
     <div class="about-text">
-      <p>I'm a final-year <strong>B.Sc. Computer Science</strong> student at Rivers State University, Port Harcourt, specializing in <strong>Web Development and Cybersecurity</strong>.</p>
-      <p>Alongside coursework, I freelance — building complete software systems and academic documentation for coursemates, from database design through to deployment. It's how I've stayed sharp on shipping real, working software rather than just class exercises.</p>
-      <p>My main focus right now is applied ML for network security — <strong>AEGIS-IDS</strong>, an intrusion detection system I built end to end, is the project I'm most proud of. I'm building toward a career in cybersecurity and actively studying penetration testing fundamentals alongside it.</p>
-      <p>My interest in security didn't start in a classroom — watching <strong>Mr. Robot</strong> is what first pulled me toward it. I've since built out a small home lab (Kali and Ubuntu Server in VirtualBox) to actually practice attack and defense scenarios instead of just reading about them, and I'm working through TryHackMe and Hack The Box on my way toward certifications like Security+, eJPT, and eventually OSCP.</p>
-      <p>Everything here — the projects, the write-ups, this site — is part of building a portfolio strong enough to break into the Nigerian tech job market once I graduate.</p>
+      <p class="about-lede">i build software systems, write technical documentation, and ship detection models — moving from database schema to deployment, and increasingly, from packet capture to classification.</p>
+      <p>i'm a final-year <strong>B.Sc. Computer Science</strong> student at Rivers State University, Port Harcourt, working at the intersection of <strong>web development</strong> and <strong>cybersecurity</strong> — building real, working software for people who need it, not just class exercises.</p>
+      <p>i've freelanced complete systems for coursemates — a live e-commerce platform, a role-based work order manager — and built <strong>AEGIS-IDS</strong> end to end: a network intrusion detection system blending three ML models into a 99.81%-accurate ensemble, trained on 2.8 million records.</p>
+      <p>when i'm not coding, i'm watching wrestling and <strong>Mr. Robot</strong> — which is honestly where my interest in security started. i've since built a home lab (kali and ubuntu server in virtualbox) to practice real attack-and-defense scenarios, and i'm working through tryhackme and hack the box on my way to certifications like security+, ejpt, and eventually oscp.</p>
+      <p>everything here is part of one goal: a portfolio strong enough to break into the nigerian tech job market once i graduate.</p>
     </div>
   </section>
 
