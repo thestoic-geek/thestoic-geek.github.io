@@ -218,14 +218,14 @@
   .feed-line .ts{color:var(--text-dim); opacity:.55; margin-right:9px;}
 
   /* ---- Section shell ---- */
-  section{padding:72px 0; opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease);}
+  section{padding:40px 0; opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease);}
   section.in-view{opacity:1; transform:translateY(0);}
   .section-head{
-    display:flex; align-items:baseline; gap:10px; margin-bottom:26px;
+    display:flex; align-items:baseline; gap:10px; margin-bottom:16px;
   }
-  .prompt{font-family:var(--mono); color:var(--green); font-size:15px;}
+  .prompt{font-family:var(--mono); color:var(--green); font-size:19px; font-weight:700;}
   .section-title{
-    font-family:var(--mono); font-size:15px; color:var(--text-dim); letter-spacing:.02em;
+    font-family:var(--mono); font-size:19px; font-weight:700; color:var(--text-bright); letter-spacing:-.005em;
   }
 
   /* ---- About ---- */
@@ -235,54 +235,59 @@
 
   /* ---- Education ---- */
   .edu-box{
-    max-width:420px; padding:16px 18px; border:1px solid var(--border); border-radius:10px;
-    background:linear-gradient(180deg, var(--bg-panel), var(--bg-panel-alt));
+    max-width:420px;
     font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
-    box-shadow:0 12px 30px -18px rgba(0,0,0,0.6);
+    transition:color .3s ease;
   }
-  .edu-box b{color:var(--text-bright); font-family:var(--sans); display:block; font-size:14.5px; margin-bottom:4px;}
+  .edu-box:hover{color:var(--green);}
+  .edu-box b{
+    color:var(--text-dim); font-family:var(--sans); display:block; font-size:14.5px; margin-bottom:4px;
+    transition:color .3s ease;
+  }
+  .edu-box:hover b{color:var(--green);}
 
   /* ---- Roles ---- */
   .plain-list{list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:14px; max-width:480px;}
   .plain-list li{
-    padding:8px 0; border-bottom:1px dashed var(--border); color:var(--text);
-    transition:padding-left .2s var(--ease);
+    padding:8px 0; border-bottom:1px dashed var(--border); color:var(--text-dim);
+    transition:padding-left .2s var(--ease), color .3s ease;
   }
-  .plain-list li::before{content:'↳ '; color:var(--green);}
-  .plain-list li:hover{padding-left:4px;}
+  .plain-list li::before{content:'↳ '; color:var(--text-dim); transition:color .3s ease;}
+  .plain-list li:hover{padding-left:4px; color:var(--green);}
+  .plain-list li:hover::before{color:var(--green);}
   .plain-list li:last-child{border-bottom:none;}
 
   /* ---- Stack ---- */
   .stack-list{list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:13px; max-width:480px;}
   .stack-list li{
     display:flex; justify-content:space-between; padding:8.5px 0; border-bottom:1px dashed var(--border);
-    color:var(--text-dim); transition:padding-left .2s var(--ease);
+    color:var(--text-dim); transition:padding-left .2s var(--ease), color .3s ease;
   }
-  .stack-list li:hover{padding-left:4px; color:var(--text);}
-  .stack-list li span:last-child{color:var(--text);}
+  .stack-list li:hover{padding-left:4px; color:var(--green);}
+  .stack-list li span:last-child{color:var(--text-dim); transition:color .3s ease;}
+  .stack-list li:hover span:last-child{color:var(--green);}
 
   /* ---- Projects ---- */
   .card{
-    border-bottom:1px solid var(--border);
     padding:22px 0; margin-bottom:2px; position:relative;
     transition:padding-left .25s var(--ease);
   }
-  .card:last-child{border-bottom:none;}
   .card:hover{padding-left:6px;}
-  .card.is-featured{border-left:2px solid var(--green-dim); padding-left:16px;}
+  .card.is-featured{padding-left:16px;}
   .card.is-featured:hover{padding-left:20px;}
   .card-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;}
   .badge{
     font-family:var(--mono); font-size:10px; letter-spacing:.07em; text-transform:uppercase;
-    padding:3px 9px; border-radius:99px; border:1px solid currentColor;
+    padding:3px 9px; border-radius:99px; border:1px solid var(--border); color:var(--text-dim);
+    transition:color .3s ease, border-color .3s ease;
   }
-  .badge.featured{color:var(--green); text-shadow:0 0 10px var(--green-glow);}
-  .badge.web{color:var(--amber);}
-  .badge.ai{color:#93a4f7;}
+  .card:hover .badge{color:var(--green); border-color:var(--green-dim);}
   .card-title{
     font-family:var(--mono); font-size:17px; font-weight:600; margin:0; letter-spacing:-.005em;
-    color:var(--green); text-shadow:0 0 12px var(--green-glow);
+    color:var(--text-dim);
+    transition:color .3s ease;
   }
+  .card:hover .card-title{color:var(--green);}
   .card-desc{font-size:14.8px; color:var(--text); margin:9px 0 14px;}
   .card-meta{
     font-family:var(--mono); font-size:12px; color:var(--text-dim);
@@ -301,15 +306,18 @@
   .stat b{color:var(--text-bright); font-size:13.5px; display:block; margin-bottom:1px;}
 
   /* ---- Contact / footer ---- */
-  .contact-line{font-size:13.5px; margin:0 0 12px; color:var(--text-dim);}
+  .contact-line{font-size:13.5px; margin:0 0 20px; color:var(--text-dim);}
   .contact-line .k{color:var(--green);}
-  .contact-links{display:flex; flex-wrap:wrap; gap:24px; margin-top:20px; font-family:var(--mono); font-size:14px;}
-  .contact-links a{
-    text-decoration:none; color:var(--text-bright); display:flex; align-items:center; gap:8px;
-    transition:color .2s var(--ease), transform .2s var(--ease); padding:6px 0;
+  .contact-list{list-style:none; margin:0; padding:0; max-width:480px;}
+  .contact-list li{border-bottom:1px dashed var(--border);}
+  .contact-list li:last-child{border-bottom:none;}
+  .contact-list a{
+    display:flex; align-items:center; gap:12px;
+    text-decoration:none; color:var(--text-dim); font-family:var(--mono); font-size:14px;
+    padding:12px 0; transition:color .3s ease, padding-left .2s var(--ease);
   }
-  .contact-links a:hover{color:var(--green); transform:translateX(3px);}
-  .contact-links .arrow{color:var(--green);}
+  .contact-list a:hover{color:var(--green); padding-left:4px;}
+  .contact-icon{display:flex; align-items:center; justify-content:center; color:inherit; flex-shrink:0;}
   footer{
     padding:40px 0 56px; text-align:center; font-family:var(--mono); font-size:11.5px; color:var(--text-dim);
     border-top:1px solid var(--border-soft); margin-top:20px;
@@ -331,7 +339,7 @@
   }
   .avatar::before{top:-1px; left:-1px; border-right:none; border-bottom:none; border-radius:6px 0 0 0;}
   .avatar::after{bottom:-1px; right:-1px; border-left:none; border-top:none; border-radius:0 0 6px 0;}
-  .avatar-sm{width:52px; height:52px; border-radius:12px;}
+  .avatar-sm{width:68px; height:68px; border-radius:14px;}
   .avatar-sm::before, .avatar-sm::after{width:8px; height:8px;}
   .avatar-sm .avatar-img{border-radius:10px;}
   .nav-brand-row{display:flex; align-items:center; gap:9px;}
@@ -424,10 +432,6 @@
   }
   .smirk-overlay.show{opacity:1;}
   .smirk-overlay svg{filter:drop-shadow(0 0 24px var(--green-glow));}
-
-  /* ---- Plain contact section (no terminal chrome) ---- */
-  .contact-plain{font-family:var(--mono);}
-  .contact-plain .contact-line{font-size:14px;}
 </style>
 </head>
 
@@ -467,9 +471,9 @@
     <a class="nav-brand nav-brand-row" href="#"><span class="avatar-mini">BJ</span>thestoicgeek</a>
     <ul class="nav-links">
       <li><a href="#about">about</a></li>
-      <li><a href="#education">education</a></li>
       <li><a href="#roles">roles</a></li>
       <li><a href="#stack">stack</a></li>
+      <li><a href="#education">education</a></li>
       <li><a href="#projects">projects</a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
@@ -479,10 +483,6 @@
 <div class="wrap">
   <div class="hero">
     <div class="term">
-      <div class="term-bar">
-        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-        <span class="term-title">bjaja@rsu:~$ ./init.sh</span>
-      </div>
       <div class="term-body">
         <div class="hero-top">
           <div class="hero-identity">
@@ -508,19 +508,13 @@
       <p>I'm a final-year <strong>B.Sc. Computer Science</strong> student at Rivers State University, Port Harcourt, specializing in <strong>Web Development and Cybersecurity</strong>.</p>
       <p>Alongside coursework, I freelance — building complete software systems and academic documentation for coursemates, from database design through to deployment. It's how I've stayed sharp on shipping real, working software rather than just class exercises.</p>
       <p>My main focus right now is applied ML for network security — <strong>AEGIS-IDS</strong>, an intrusion detection system I built end to end, is the project I'm most proud of. I'm building toward a career in cybersecurity and actively studying penetration testing fundamentals alongside it.</p>
-    </div>
-  </section>
-
-  <section id="education">
-    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat education.md</span></div>
-    <div class="edu-box">
-      <b>Rivers State University</b>
-      B.Sc. Computer Science — final year
+      <p>My interest in security didn't start in a classroom — watching <strong>Mr. Robot</strong> is what first pulled me toward it. I've since built out a small home lab (Kali and Ubuntu Server in VirtualBox) to actually practice attack and defense scenarios instead of just reading about them, and I'm working through TryHackMe and Hack The Box on my way toward certifications like Security+, eJPT, and eventually OSCP.</p>
+      <p>Everything here — the projects, the write-ups, this site — is part of building a portfolio strong enough to break into the Nigerian tech job market once I graduate.</p>
     </div>
   </section>
 
   <section id="roles">
-    <div class="section-head"><span class="prompt">$</span><span class="section-title">ls roles/</span></div>
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat open-to.md</span></div>
     <ul class="plain-list">
       <li>Web Developer</li>
       <li>Backend Developer</li>
@@ -540,6 +534,14 @@
       <li><span>Security</span><span>IDS design · pentest fundamentals</span></li>
       <li><span>Tools</span><span>Git · XAMPP · VirtualBox</span></li>
     </ul>
+  </section>
+
+  <section id="education">
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat education.md</span></div>
+    <div class="edu-box">
+      <b>Rivers State University</b>
+      B.Sc. Computer Science — final year
+    </div>
   </section>
 
   <section id="projects">
@@ -609,14 +611,27 @@
 
   <section id="contact">
     <div class="section-head"><span class="prompt">$</span><span class="section-title">cat contact.txt</span></div>
-    <div class="contact-plain">
-      <p class="contact-line"><span class="k">&gt;</span> open to internships, freelance builds, and full-time roles in web dev or security.</p>
-      <div class="contact-links">
-        <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener"><span class="arrow">↳</span> github/thestoic-geek</a>
-        <a href="https://x.com/thestoicgeek" target="_blank" rel="noopener"><span class="arrow">↳</span> x/thestoicgeek</a>
-        <a href="mailto:thestoicgeek@protonmail.com"><span class="arrow">↳</span> thestoicgeek@protonmail.com</a>
-      </div>
-    </div>
+    <p class="contact-line"><span class="k">&gt;</span> open to internships, freelance builds, and full-time roles in web dev or security.</p>
+    <ul class="contact-list">
+      <li>
+        <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener">
+          <span class="contact-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 2C6.48 2 2 6.58 2 12.19c0 4.49 2.87 8.3 6.84 9.64.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.11-1.49-1.11-1.49-.91-.63.07-.62.07-.62 1 .07 1.53 1.04 1.53 1.04.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.2 10.2 0 0 0 22 12.19C22 6.58 17.52 2 12 2z" fill="currentColor"/></svg></span>
+          <span class="contact-text">github/thestoic-geek</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://x.com/thestoicgeek" target="_blank" rel="noopener">
+          <span class="contact-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M2 2l8.5 11.2L2.4 22h2.2l7.1-7.7L17.5 22H22l-9-11.9L21.6 2h-2.2l-6.5 7.1L6.5 2H2z" fill="currentColor"/></svg></span>
+          <span class="contact-text">x/thestoicgeek</span>
+        </a>
+      </li>
+      <li>
+        <a href="mailto:thestoicgeek@protonmail.com">
+          <span class="contact-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><rect x="2.5" y="4.5" width="19" height="15" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 6l8.5 7 8.5-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="contact-text">thestoicgeek@protonmail.com</span>
+        </a>
+      </li>
+    </ul>
   </section>
 </div>
 
