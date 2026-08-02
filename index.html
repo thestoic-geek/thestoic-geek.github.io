@@ -226,6 +226,12 @@
   .prompt{font-family:var(--mono); color:var(--green); font-size:19px; font-weight:700;}
   .section-title{
     font-family:var(--mono); font-size:19px; font-weight:700; color:var(--text-bright); letter-spacing:-.005em;
+    transition:color .3s ease;
+  }
+  .section-head:hover .section-title{color:var(--green); animation:headerPulse 1.4s ease-in-out infinite;}
+  @keyframes headerPulse{
+    0%,100%{opacity:.55;}
+    50%{opacity:1;}
   }
 
   /* ---- About ---- */
@@ -239,22 +245,23 @@
     font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
     transition:color .3s ease;
   }
-  .edu-box:hover{color:var(--green);}
+  .edu-box:hover{color:var(--text-bright);}
   .edu-box b{
     color:var(--text-dim); font-family:var(--sans); display:block; font-size:14.5px; margin-bottom:4px;
     transition:color .3s ease;
   }
-  .edu-box:hover b{color:var(--green);}
+  .edu-box:hover b{color:var(--text-bright);}
 
   /* ---- Roles ---- */
+  .section-note{font-family:var(--mono); font-size:13px; color:var(--text-dim); margin:0 0 16px;}
   .plain-list{list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:14px; max-width:480px;}
   .plain-list li{
     padding:8px 0; border-bottom:1px dashed var(--border); color:var(--text-dim);
     transition:padding-left .2s var(--ease), color .3s ease;
   }
   .plain-list li::before{content:'↳ '; color:var(--text-dim); transition:color .3s ease;}
-  .plain-list li:hover{padding-left:4px; color:var(--green);}
-  .plain-list li:hover::before{color:var(--green);}
+  .plain-list li:hover{padding-left:4px; color:var(--text-bright);}
+  .plain-list li:hover::before{color:var(--text-bright);}
   .plain-list li:last-child{border-bottom:none;}
 
   /* ---- Stack ---- */
@@ -263,9 +270,9 @@
     display:flex; justify-content:space-between; padding:8.5px 0; border-bottom:1px dashed var(--border);
     color:var(--text-dim); transition:padding-left .2s var(--ease), color .3s ease;
   }
-  .stack-list li:hover{padding-left:4px; color:var(--green);}
+  .stack-list li:hover{padding-left:4px; color:var(--text-bright);}
   .stack-list li span:last-child{color:var(--text-dim); transition:color .3s ease;}
-  .stack-list li:hover span:last-child{color:var(--green);}
+  .stack-list li:hover span:last-child{color:var(--text-bright);}
 
   /* ---- Projects ---- */
   .card{
@@ -281,13 +288,13 @@
     padding:3px 9px; border-radius:99px; border:1px solid var(--border); color:var(--text-dim);
     transition:color .3s ease, border-color .3s ease;
   }
-  .card:hover .badge{color:var(--green); border-color:var(--green-dim);}
+  .card:hover .badge{color:var(--text-bright); border-color:var(--border-soft);}
   .card-title{
     font-family:var(--mono); font-size:17px; font-weight:600; margin:0; letter-spacing:-.005em;
     color:var(--text-dim);
     transition:color .3s ease;
   }
-  .card:hover .card-title{color:var(--green);}
+  .card:hover .card-title{color:var(--text-bright);}
   .card-desc{font-size:14.8px; color:var(--text); margin:9px 0 14px;}
   .card-meta{
     font-family:var(--mono); font-size:12px; color:var(--text-dim);
@@ -309,14 +316,14 @@
   .contact-line{font-size:13.5px; margin:0 0 20px; color:var(--text-dim);}
   .contact-line .k{color:var(--green);}
   .contact-list{list-style:none; margin:0; padding:0; max-width:480px;}
-  .contact-list li{border-bottom:1px dashed var(--border);}
+  .contact-list li{}
   .contact-list li:last-child{border-bottom:none;}
   .contact-list a{
     display:flex; align-items:center; gap:12px;
     text-decoration:none; color:var(--text-dim); font-family:var(--mono); font-size:14px;
     padding:12px 0; transition:color .3s ease, padding-left .2s var(--ease);
   }
-  .contact-list a:hover{color:var(--green); padding-left:4px;}
+  .contact-list a:hover{color:var(--text-bright); padding-left:4px;}
   .contact-icon{display:flex; align-items:center; justify-content:center; color:inherit; flex-shrink:0;}
   footer{
     padding:40px 0 56px; text-align:center; font-family:var(--mono); font-size:11.5px; color:var(--text-dim);
@@ -457,11 +464,14 @@
 </div>
 
 <div class="smirk-overlay" id="smirkOverlay">
-  <svg width="140" height="140" viewBox="0 0 140 140" fill="none">
-    <circle cx="70" cy="70" r="66" stroke="#1c2530" stroke-width="1.5"/>
-    <path d="M42 58c2-6 8-6 10 0" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
-    <path d="M88 56c2-6 8-6 10 0" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
-    <path d="M40 90c14 14 46 16 62-4" stroke="#3ee89f" stroke-width="4" stroke-linecap="round"/>
+  <svg width="150" height="150" viewBox="0 0 150 150" fill="none">
+    <circle cx="75" cy="75" r="70" stroke="#1c2530" stroke-width="1.5"/>
+    <path d="M38 55 L58 63" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M112 55 L92 63" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M42 69 L60 65" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M108 69 L90 65" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
+    <path d="M40 96 Q62 116 88 106 Q100 101 108 88" stroke="#3ee89f" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M103 91 L110 86 L107 97 Z" fill="#3ee89f"/>
   </svg>
 </div>
 
@@ -503,7 +513,7 @@
   </div>
 
   <section id="about">
-    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat about.md</span></div>
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat about</span></div>
     <div class="about-text">
       <p>I'm a final-year <strong>B.Sc. Computer Science</strong> student at Rivers State University, Port Harcourt, specializing in <strong>Web Development and Cybersecurity</strong>.</p>
       <p>Alongside coursework, I freelance — building complete software systems and academic documentation for coursemates, from database design through to deployment. It's how I've stayed sharp on shipping real, working software rather than just class exercises.</p>
@@ -514,7 +524,8 @@
   </section>
 
   <section id="roles">
-    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat open-to.md</span></div>
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat roles-open-to</span></div>
+    <p class="section-note">positions I'd take on right now — freelance, internship, or full-time.</p>
     <ul class="plain-list">
       <li>Web Developer</li>
       <li>Backend Developer</li>
@@ -525,7 +536,7 @@
   </section>
 
   <section id="stack">
-    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat stack.md</span></div>
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat stack</span></div>
     <ul class="stack-list">
       <li><span>Languages</span><span>PHP · Python · JavaScript</span></li>
       <li><span>Backend</span><span>Flask · native PHP</span></li>
@@ -537,7 +548,7 @@
   </section>
 
   <section id="education">
-    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat education.md</span></div>
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat education</span></div>
     <div class="edu-box">
       <b>Rivers State University</b>
       B.Sc. Computer Science — final year
