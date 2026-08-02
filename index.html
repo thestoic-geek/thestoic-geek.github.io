@@ -117,7 +117,7 @@
   .term-body{padding:28px 30px 32px; font-family:var(--mono);}
 
   /* ---- Hero ---- */
-  .hero{padding:80px 0 44px;}
+  .hero{padding:64px 0 20px;}
   .boot-line{
     font-size:13px; color:var(--text-dim); margin:0 0 7px;
     opacity:0; animation:fadeIn .35s var(--ease) forwards;
@@ -218,7 +218,7 @@
   .feed-line .ts{color:var(--text-dim); opacity:.55; margin-right:9px;}
 
   /* ---- Section shell ---- */
-  section{padding:40px 0; opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease);}
+  section{padding:30px 0; opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease);}
   section.in-view{opacity:1; transform:translateY(0);}
   .section-head{
     display:flex; align-items:baseline; gap:10px; margin-bottom:16px;
@@ -226,9 +226,16 @@
   .prompt{font-family:var(--mono); color:var(--green); font-size:19px; font-weight:700;}
   .section-title{
     font-family:var(--mono); font-size:19px; font-weight:700; color:var(--text-bright); letter-spacing:-.005em;
+  }
+
+  /* ---- Subheading (AEGIS-IDS, BookStore, WOMS, JARVIS, Rivers State University, stack categories) ---- */
+  .subheading{
+    font-family:var(--mono); font-weight:700; color:var(--text-bright); letter-spacing:-.005em;
     transition:color .3s ease;
   }
-  .section-head:hover .section-title{color:var(--green); animation:headerPulse 1.4s ease-in-out infinite;}
+  .subheading:hover, .hover-group:hover .subheading{
+    color:var(--green); animation:headerPulse 1.4s ease-in-out infinite;
+  }
   @keyframes headerPulse{
     0%,100%{opacity:.55;}
     50%{opacity:1;}
@@ -247,10 +254,10 @@
   }
   .edu-box:hover{color:var(--text-bright);}
   .edu-box b{
-    color:var(--text-dim); font-family:var(--sans); display:block; font-size:14.5px; margin-bottom:4px;
-    transition:color .3s ease;
+    color:var(--text-bright); font-family:var(--sans); display:block; font-size:16px; margin-bottom:5px;
+    font-weight:700; transition:color .3s ease;
   }
-  .edu-box:hover b{color:var(--text-bright);}
+  .edu-box:hover b{color:var(--green); animation:headerPulse 1.4s ease-in-out infinite;}
 
   /* ---- Roles ---- */
   .section-note{font-family:var(--mono); font-size:13px; color:var(--text-dim); margin:0 0 16px;}
@@ -265,14 +272,14 @@
   .plain-list li:last-child{border-bottom:none;}
 
   /* ---- Stack ---- */
-  .stack-list{list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:13px; max-width:480px;}
-  .stack-list li{
-    display:flex; justify-content:space-between; padding:8.5px 0; border-bottom:1px dashed var(--border);
-    color:var(--text-dim); transition:padding-left .2s var(--ease), color .3s ease;
+  .stack-groups{display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:22px 28px; max-width:640px;}
+  .stack-group .subheading{font-size:14.5px; margin:0 0 5px;}
+  .stack-group:hover .subheading{color:var(--green); animation:headerPulse 1.4s ease-in-out infinite;}
+  .stack-items{
+    font-family:var(--mono); font-size:12.5px; color:var(--text-dim); margin:0;
+    transition:color .3s ease;
   }
-  .stack-list li:hover{padding-left:4px; color:var(--text-bright);}
-  .stack-list li span:last-child{color:var(--text-dim); transition:color .3s ease;}
-  .stack-list li:hover span:last-child{color:var(--text-bright);}
+  .stack-group:hover .stack-items{color:var(--text-bright);}
 
   /* ---- Projects ---- */
   .card{
@@ -290,16 +297,19 @@
   }
   .card:hover .badge{color:var(--text-bright); border-color:var(--border-soft);}
   .card-title{
-    font-family:var(--mono); font-size:17px; font-weight:600; margin:0; letter-spacing:-.005em;
-    color:var(--text-dim);
+    font-family:var(--mono); font-size:17px; font-weight:700; margin:0; letter-spacing:-.005em;
+    color:var(--text-bright);
     transition:color .3s ease;
   }
-  .card:hover .card-title{color:var(--text-bright);}
-  .card-desc{font-size:14.8px; color:var(--text); margin:9px 0 14px;}
+  .card:hover .card-title{color:var(--green); animation:headerPulse 1.4s ease-in-out infinite;}
+  .card-desc{font-size:14.8px; color:var(--text-dim); margin:9px 0 14px; transition:color .3s ease;}
+  .card:hover .card-desc{color:var(--text-bright);}
   .card-meta{
     font-family:var(--mono); font-size:12px; color:var(--text-dim);
     display:flex; flex-wrap:wrap; gap:14px; margin-bottom:12px;
+    transition:color .3s ease;
   }
+  .card:hover .card-meta{color:var(--text-bright);}
   .card-links{display:flex; gap:16px; font-family:var(--mono); font-size:12.5px;}
   .card-links a{color:var(--text-dim); text-decoration:none; border-bottom:1px solid transparent; transition:color .2s, border-color .2s;}
   .card-links a:hover{color:var(--green); border-bottom-color:var(--green);}
@@ -346,8 +356,8 @@
   }
   .avatar::before{top:-1px; left:-1px; border-right:none; border-bottom:none; border-radius:6px 0 0 0;}
   .avatar::after{bottom:-1px; right:-1px; border-left:none; border-top:none; border-radius:0 0 6px 0;}
-  .avatar-sm{width:68px; height:68px; border-radius:14px;}
-  .avatar-sm::before, .avatar-sm::after{width:8px; height:8px;}
+  .avatar-sm{width:88px; height:88px; border-radius:16px;}
+  .avatar-sm::before, .avatar-sm::after{width:10px; height:10px;}
   .avatar-sm .avatar-img{border-radius:10px;}
   .nav-brand-row{display:flex; align-items:center; gap:9px;}
   .avatar-mini{
@@ -446,7 +456,6 @@
 
 <div class="intro" id="intro">
   <div class="intro-inner">
-    <div class="intro-avatar">BJ</div>
     <div id="introChoice">
       <div class="intro-headline">welcome to my construct.</div>
       <div class="intro-sub">come in?</div>
@@ -464,14 +473,13 @@
 </div>
 
 <div class="smirk-overlay" id="smirkOverlay">
+  <!--
+    DROP YOUR OWN SVG HERE.
+    Replace the single <svg>...</svg> block below with your drawing.
+    Keep width="150" height="150" (or adjust to taste) so it stays centered.
+    Use stroke="#3ee89f" / fill="#3ee89f" to match the site's green accent, or any color you like.
+  -->
   <svg width="150" height="150" viewBox="0 0 150 150" fill="none">
-    <circle cx="75" cy="75" r="70" stroke="#1c2530" stroke-width="1.5"/>
-    <path d="M38 55 L58 63" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
-    <path d="M112 55 L92 63" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
-    <path d="M42 69 L60 65" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
-    <path d="M108 69 L90 65" stroke="#3ee89f" stroke-width="3" stroke-linecap="round"/>
-    <path d="M40 96 Q62 116 88 106 Q100 101 108 88" stroke="#3ee89f" stroke-width="4" stroke-linecap="round" fill="none"/>
-    <path d="M103 91 L110 86 L107 97 Z" fill="#3ee89f"/>
   </svg>
 </div>
 
@@ -483,8 +491,8 @@
       <li><a href="#about">about</a></li>
       <li><a href="#roles">roles</a></li>
       <li><a href="#stack">stack</a></li>
-      <li><a href="#education">education</a></li>
       <li><a href="#projects">projects</a></li>
+      <li><a href="#education">education</a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
   </div>
@@ -496,7 +504,7 @@
       <div class="term-body">
         <div class="hero-top">
           <div class="hero-identity">
-            <div class="avatar avatar-sm"><img class="avatar-img" src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=thestoicgeek&backgroundColor=0d1218&backgroundType=solid" alt="Benjamin Jaja — placeholder avatar" loading="lazy"></div>
+            <div class="avatar avatar-sm"><img class="avatar-img" src="profile.jpg" alt="Benjamin Jaja" loading="lazy"></div>
             <div class="hero-id-text">
               <h1 class="hero-name"><span class="scramble" id="scramble-name" data-final="Benjamin Tamunoibi Jaja"></span><span class="verified-badge" tabindex="0" aria-label="Identity verified"><svg viewBox="0 0 24 24" width="17" height="17" fill="none"><path d="M12 2l2.4 1.3 2.7-.3 1.3 2.4 2.4 1.3-.3 2.7 1.3 2.4-1.3 2.4.3 2.7-2.4 1.3-1.3 2.4-2.7-.3L12 22l-2.4-1.3-2.7.3-1.3-2.4-2.4-1.3.3-2.7L2 12l1.3-2.4-.3-2.7 2.4-1.3 1.3-2.4 2.7.3z" fill="currentColor"/><path d="M8.5 12.3l2.3 2.3 4.7-4.9" stroke="#07090c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="verified-tip">identity verified</span></span></h1>
               <div class="hero-handle scramble" id="scramble-handle" data-final="@thestoicgeek"></div>
@@ -537,21 +545,31 @@
 
   <section id="stack">
     <div class="section-head"><span class="prompt">$</span><span class="section-title">cat stack</span></div>
-    <ul class="stack-list">
-      <li><span>Languages</span><span>PHP · Python · JavaScript</span></li>
-      <li><span>Backend</span><span>Flask · native PHP</span></li>
-      <li><span>Database</span><span>MySQL (PDO)</span></li>
-      <li><span>ML / Data</span><span>scikit-learn · SHAP · LIME</span></li>
-      <li><span>Security</span><span>IDS design · pentest fundamentals</span></li>
-      <li><span>Tools</span><span>Git · XAMPP · VirtualBox</span></li>
-    </ul>
-  </section>
-
-  <section id="education">
-    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat education</span></div>
-    <div class="edu-box">
-      <b>Rivers State University</b>
-      B.Sc. Computer Science — final year
+    <div class="stack-groups">
+      <div class="stack-group">
+        <h3 class="subheading">Languages</h3>
+        <p class="stack-items">PHP · Python · JavaScript</p>
+      </div>
+      <div class="stack-group">
+        <h3 class="subheading">Backend</h3>
+        <p class="stack-items">Flask · native PHP</p>
+      </div>
+      <div class="stack-group">
+        <h3 class="subheading">Database</h3>
+        <p class="stack-items">MySQL (PDO)</p>
+      </div>
+      <div class="stack-group">
+        <h3 class="subheading">ML / Data</h3>
+        <p class="stack-items">scikit-learn · SHAP · LIME</p>
+      </div>
+      <div class="stack-group">
+        <h3 class="subheading">Security</h3>
+        <p class="stack-items">IDS design · pentest fundamentals</p>
+      </div>
+      <div class="stack-group">
+        <h3 class="subheading">Tools</h3>
+        <p class="stack-items">Git · XAMPP · VirtualBox</p>
+      </div>
     </div>
   </section>
 
@@ -617,6 +635,14 @@
       <div class="card-links">
         <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener">→ view on github</a>
       </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-head"><span class="prompt">$</span><span class="section-title">cat education</span></div>
+    <div class="edu-box">
+      <b>Rivers State University</b>
+      B.Sc. Computer Science
     </div>
   </section>
 
