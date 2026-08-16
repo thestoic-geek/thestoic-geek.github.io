@@ -350,6 +350,7 @@
     border:1px solid var(--border); border-radius:14px;
     box-shadow:0 14px 34px -18px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.02) inset;
     letter-spacing:.02em; text-shadow:0 0 16px var(--green-glow);
+    overflow:hidden;
   }
   .avatar::before, .avatar::after{
     content:''; position:absolute; width:10px; height:10px; border:1.5px solid var(--green-dim);
@@ -449,6 +450,24 @@
   }
   .smirk-overlay.show{opacity:1;}
   .smirk-overlay svg{filter:drop-shadow(0 0 24px var(--green-glow));}
+  /* ---- Mobile ---- */
+  @media (max-width: 640px){
+    .wrap{padding:0 18px;}
+    .nav-inner{padding:12px 18px;}
+    .nav-links{gap:12px; flex-wrap:wrap; row-gap:6px;}
+    .nav-links li::before{content:none;}
+    .hero{padding:44px 0 16px;}
+    .term-body{padding:16px 16px 18px;}
+    .hero-top{flex-direction:column; align-items:flex-start; gap:14px;}
+    .hero-live{align-items:flex-start; width:100%;}
+    .hero-name{font-size:19px; flex-wrap:wrap;}
+    .avatar-sm{width:52px; height:52px;}
+    section{padding:24px 0;}
+    .section-title, .prompt{font-size:16px;}
+    .about-lede{font-size:16px;}
+    .stack-groups{grid-template-columns:1fr 1fr; gap:16px 18px;}
+    .card-meta{gap:8px;}
+  }
 </style>
 </head>
 
@@ -529,11 +548,8 @@
   <section id="about">
     <div class="section-head"><span class="prompt">$</span><span class="section-title">cat about</span></div>
     <div class="about-text">
-      <p class="about-lede">final-year computer science student at rivers state university, port harcourt. i build software, write documentation, and lately spend most of my time on network security models.</p>
-      <p>most of what i do outside class is freelance work for coursemates. a live bookstore, a work order system for tracking maintenance requests. building those taught me more about shipping real software than any assignment did.</p>
-      <p>the project i'm proudest of is aegis-ids, an intrusion detection system i built from scratch. three ml models blended into one ensemble, 99.81% accurate, trained on 2.8 million records from cicids2017. it's the first thing i point people to when they ask what i actually do.</p>
-      <p>i got into security through mr. robot, not a classroom. i've since set up a small home lab (kali and ubuntu server in virtualbox) to practice attacks instead of just reading about them, and i'm slowly working through tryhackme and hack the box toward security+, ejpt, and eventually oscp. also a big wwe fan, if that matters to anyone.</p>
-      <p>this site, the projects, all of it, is aimed at one thing. a portfolio good enough to actually land a job in the nigerian tech market once i graduate.</p>
+      <p class="about-lede">i build machine learning systems that catch real threats. my intrusion detection ensemble hits 99.81% accuracy on 2.8 million network records, and it explains every alert it raises instead of acting like a black box.</p>
+      <p>final-year computer science student at rivers state university, freelancing production software for other students and building toward a career in cybersecurity. i got into security through mr. robot, not a classroom, and i'm now working through tryhackme and hack the box toward security+, ejpt, and oscp.</p>
     </div>
   </section>
 
