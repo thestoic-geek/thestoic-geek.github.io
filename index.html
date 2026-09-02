@@ -841,7 +841,7 @@
     function burst(){
       var burstLen = 1 + Math.floor(Math.random()*3);
       var start = Math.floor(Math.random()*Math.max(1, chars.length - burstLen));
-      var ticks = 6;
+      var ticks = 7;
       var tick = 0;
       var iv = setInterval(function(){
         tick++;
@@ -853,11 +853,11 @@
         if(tick >= ticks){
           clearInterval(iv);
           el.textContent = finalText;
-          setTimeout(burst, 1800 + Math.random()*3200);
+          setTimeout(burst, 600 + Math.random()*900);
         }
       }, 45);
     }
-    setTimeout(burst, 1500 + Math.random()*2000);
+    setTimeout(burst, 900 + Math.random()*600);
   }
 
   window.addEventListener('DOMContentLoaded', function(){
