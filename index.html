@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Benjamin Tamunoibi Jaja — thestoicgeek</title>
-<meta name="description" content="Benjamin Tamunoibi Jaja — Web development &amp; cybersecurity. Final-year B.Sc CS, Rivers State University.">
+<title>Benjamin Tamunoibi Jaja | thestoicgeek</title>
+<meta name="description" content="Benjamin Tamunoibi Jaja. Web development and cybersecurity. Final-year B.Sc CS, Rivers State University.">
 <link rel="canonical" href="https://thestoic-geek.github.io/">
 <meta name="theme-color" content="#07090c">
 
@@ -13,14 +13,14 @@
 
 <!-- Open Graph / social share preview -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Benjamin Tamunoibi Jaja — thestoicgeek">
+<meta property="og:title" content="Benjamin Tamunoibi Jaja | thestoicgeek">
 <meta property="og:description" content="Final-year Computer Science student building at the intersection of web development and cybersecurity.">
 <meta property="og:image" content="https://thestoic-geek.github.io/profile.jpg">
 <meta property="og:url" content="https://thestoic-geek.github.io/">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Benjamin Tamunoibi Jaja — thestoicgeek">
+<meta name="twitter:title" content="Benjamin Tamunoibi Jaja | thestoicgeek">
 <meta name="twitter:description" content="Final-year Computer Science student building at the intersection of web development and cybersecurity.">
 <meta name="twitter:image" content="https://thestoic-geek.github.io/profile.jpg">
 
@@ -105,7 +105,7 @@
     background:var(--green); transform:scaleX(0); transform-origin:left;
     transition:transform .3s var(--ease);
   }
-  .nav-links a:hover{color:var(--text-bright);}
+  .nav-links a:hover{color:var(--green);}
   .nav-links a:hover::after{transform:scaleX(1);}
   .nav-links li::before{content:'$ '; color:var(--text-dim); opacity:.5;}
 
@@ -282,18 +282,15 @@
   .section-note{font-family:var(--mono); font-size:13px; color:var(--text-dim); margin:0 0 16px;}
   .plain-list{list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:14px; max-width:480px;}
   .plain-list li{
-    padding:8px 0; border-bottom:1px dashed var(--border); color:var(--text-dim);
+    padding:8px 0; color:var(--text-dim);
     transition:padding-left .2s var(--ease), color .3s ease;
   }
   .plain-list li::before{content:'↳ '; color:var(--text-dim); transition:color .3s ease;}
   .plain-list li:hover{padding-left:4px; color:var(--text-bright);}
   .plain-list li:hover::before{color:var(--text-bright);}
-  .plain-list li:last-child{border-bottom:none;}
 
   /* ---- Stack ---- */
   .stack-groups{display:flex; flex-direction:column; gap:18px; max-width:480px;}
-  .stack-group{padding-bottom:14px; border-bottom:1px dashed var(--border);}
-  .stack-group:last-child{border-bottom:none; padding-bottom:0;}
   .stack-group .subheading{font-size:14.5px; margin:0 0 5px;}
   .stack-group:hover .subheading{color:var(--green); animation:headerPulse 1.4s ease-in-out infinite;}
   .stack-items{
@@ -308,8 +305,6 @@
     transition:padding-left .25s var(--ease);
   }
   .card:hover{padding-left:6px;}
-  .card.is-featured{padding-left:16px;}
-  .card.is-featured:hover{padding-left:20px;}
   .card-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;}
   .badge{
     font-family:var(--mono); font-size:10px; letter-spacing:.07em; text-transform:uppercase;
@@ -354,7 +349,7 @@
     text-decoration:none; color:var(--text-dim); font-family:var(--mono); font-size:14px;
     padding:12px 0; transition:color .3s ease, padding-left .2s var(--ease);
   }
-  .contact-list a:hover{color:var(--text-bright); padding-left:4px;}
+  .contact-list a:hover{color:var(--green); padding-left:4px;}
   .contact-icon{display:flex; align-items:center; justify-content:center; color:inherit; flex-shrink:0;}
   footer{
     padding:40px 0 56px; text-align:center; font-family:var(--mono); font-size:11.5px; color:var(--text-dim);
@@ -578,7 +573,7 @@
           <div class="hero-live">
             <div class="live-online"><span class="live-dot"></span>online</div>
             <div class="live-clock" id="liveClock">--:--:--</div>
-            <div class="live-date" id="liveDate">—</div>
+            <div class="live-date" id="liveDate">...</div>
           </div>
         </div>
       </div>
@@ -595,13 +590,13 @@
 
   <section id="roles">
     <div class="section-head"><span class="prompt">$</span><span class="section-title">cat roles-open-to</span></div>
-    <p class="section-note">positions I'd take on right now — freelance, internship, or full-time.</p>
+    <p class="section-note">i'm open to freelance work, internships, or full-time roles right now.</p>
     <ul class="plain-list">
       <li>Web Developer</li>
       <li>Backend Developer</li>
       <li>Cybersecurity Analyst</li>
       <li>Junior Penetration Tester</li>
-      <li>Software Engineer — Intern/Junior</li>
+      <li>Software Engineer (Intern/Junior)</li>
     </ul>
   </section>
 
@@ -638,12 +633,12 @@
   <section id="projects">
     <div class="section-head"><span class="prompt">$</span><span class="section-title">ls -la ~/projects</span></div>
 
-    <div class="card is-featured">
+    <div class="card">
       <div class="card-head">
-        <span class="badge featured">featured</span>
+        <span class="badge">security</span>
         <h3 class="card-title">AEGIS-IDS</h3>
       </div>
-      <p class="card-desc">A complete ML-based network intrusion detection system with a live SOC-style monitoring dashboard — alert timeline, explainability charts, and a real-time demo classification mode.</p>
+      <p class="card-desc">A complete ML-based network intrusion detection system with a live SOC-style monitoring dashboard, including an alert timeline, explainability charts, and a real-time demo classification mode.</p>
       <div class="stat-row">
         <div class="stat"><b>99.81%</b>ensemble accuracy</div>
         <div class="stat"><b>2.8M</b>records trained (CICIDS2017)</div>
@@ -662,7 +657,7 @@
         <span class="badge web">web</span>
         <h3 class="card-title">BookStore</h3>
       </div>
-      <p class="card-desc">Full e-commerce platform for online book sales — purchase-gated reviews, wishlist, live stock tracking, and printable invoices. Deployed and live.</p>
+      <p class="card-desc">Full e-commerce platform for online book sales, with purchase-gated reviews, wishlist, live stock tracking, and printable invoices. Deployed and live.</p>
       <div class="card-meta">
         <span>PHP 8.2 · MySQL · vanilla JS</span>
       </div>
@@ -674,9 +669,9 @@
     <div class="card">
       <div class="card-head">
         <span class="badge web">web</span>
-        <h3 class="card-title">WOMS — Work Order Management System</h3>
+        <h3 class="card-title">WOMS: Work Order Management System</h3>
       </div>
-      <p class="card-desc">Role-based maintenance request platform for requesters, technicians, and admins — with a full audit trail, workload-aware assignment, and internal-only admin notes.</p>
+      <p class="card-desc">Role-based maintenance request platform for requesters, technicians, and admins, with a full audit trail, workload-aware assignment, and internal-only admin notes.</p>
       <div class="card-meta">
         <span>PHP 8.2 · MySQL · vanilla JS</span>
       </div>
@@ -690,7 +685,7 @@
         <span class="badge ai">ai</span>
         <h3 class="card-title">JARVIS</h3>
       </div>
-      <p class="card-desc">A personal AI assistant with voice I/O, a wake-word system, system-level tools, and live web search — built on the OpenRouter API.</p>
+      <p class="card-desc">A personal AI assistant with voice I/O, a wake-word system, system-level tools, and live web search, built on the OpenRouter API.</p>
       <div class="card-meta">
         <span>Python · OpenRouter API · Whisper · pyttsx3</span>
       </div>
@@ -727,7 +722,7 @@
       <li>
         <a href="mailto:thestoicgeek@protonmail.com">
           <span class="contact-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><rect x="2.5" y="4.5" width="19" height="15" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 6l8.5 7 8.5-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span class="contact-text">thestoicgeek@protonmail.com</span>
+          <span class="contact-text">email</span>
         </a>
       </li>
     </ul>
