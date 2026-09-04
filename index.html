@@ -133,7 +133,7 @@
   .term-title{
     margin-left:8px; font-family:var(--mono); font-size:12px; color:var(--text-dim);
   }
-  .term-body{padding:18px 20px 20px; font-family:var(--mono);}
+  .term-body{padding:12px 20px 14px; font-family:var(--mono);}
 
   /* ---- Hero ---- */
   .hero{padding:64px 0 20px;}
@@ -291,7 +291,9 @@
   .plain-list li:last-child{border-bottom:none;}
 
   /* ---- Stack ---- */
-  .stack-groups{display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:22px 28px; max-width:640px;}
+  .stack-groups{display:flex; flex-direction:column; gap:18px; max-width:480px;}
+  .stack-group{padding-bottom:14px; border-bottom:1px dashed var(--border);}
+  .stack-group:last-child{border-bottom:none; padding-bottom:0;}
   .stack-group .subheading{font-size:14.5px; margin:0 0 5px;}
   .stack-group:hover .subheading{color:var(--green); animation:headerPulse 1.4s ease-in-out infinite;}
   .stack-items{
@@ -468,7 +470,7 @@
     transition:opacity .25s ease;
   }
   .smirk-overlay.show{opacity:1;}
-  .smirk-overlay svg{filter:drop-shadow(0 0 24px var(--green-glow));}
+  .smirk-overlay svg{filter:drop-shadow(0 0 20px rgba(255,255,255,0.35));}
   /* ---- Mobile ---- */
   @media (max-width: 640px){
     .wrap{padding:0 18px;}
@@ -484,7 +486,6 @@
     section{padding:24px 0;}
     .section-title, .prompt{font-size:16px;}
     .about-lede{font-size:16px;}
-    .stack-groups{grid-template-columns:1fr 1fr; gap:16px 18px;}
     .card-meta{gap:8px;}
   }
 </style>
@@ -511,19 +512,39 @@
 </div>
 
 <div class="smirk-overlay" id="smirkOverlay">
-  <svg width="min(90vw, 90vh)" height="min(90vw, 90vh)" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-    <defs>
-      <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
-        <feGaussianBlur stdDeviation="3" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <ellipse cx="42" cy="32" rx="5.5" ry="7.5" fill="#3ee89f" filter="url(#glow)"/>
-    <ellipse cx="108" cy="32" rx="5.5" ry="7.5" fill="#3ee89f" filter="url(#glow)"/>
-    <path d="M26,62 C52,74 98,74 124,62 C95,122 55,122 26,62 Z" fill="#050708" stroke="#3ee89f" stroke-width="2.2" stroke-linejoin="round"/>
-    <path d="M27.2,62.5 L35.3,65.5 L31.1,74.1 Z M38.0,66.3 L47.1,68.5 L42.5,77.5 Z M50.1,69.0 L60.0,70.3 L55.0,79.7 Z M63.2,70.6 L73.4,71.0 L68.3,80.9 Z M76.6,71.0 L86.8,70.6 L81.7,80.9 Z M90.0,70.3 L99.9,69.0 L95.0,79.7 Z M102.9,68.5 L112.0,66.3 L107.5,77.5 Z M114.7,65.5 L122.8,62.5 L118.9,74.1 Z" fill="#eafff5"/>
-    <path d="M26,62 Q16,56 20,46" stroke="#3ee89f" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-    <path d="M124,62 Q134,56 130,46" stroke="#3ee89f" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <svg width="min(90vw, 90vh)" height="min(90vw, 90vh)" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+    <g style="mix-blend-mode:screen">
+      <g transform="translate(-1.4,-0.6)" opacity="0.8">
+        <ellipse cx="66" cy="18" rx="7" ry="10" fill="#1c9d6b"/>
+        <ellipse cx="134" cy="18" rx="7" ry="10" fill="#1c9d6b"/>
+        <path d="M20,70 C60,86 140,86 180,70 C140,150 60,150 20,70 Z" fill="none" stroke="#1c9d6b" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M39.4,79.9 L39.4,93.4 M62.2,83.8 L62.2,113.0 M87.2,85.8 L87.2,122.8 M112.8,85.8 L112.8,122.8 M137.8,83.8 L137.8,113.0 M160.6,79.9 L160.6,93.4" stroke="#1c9d6b" stroke-width="1.6" fill="none"/>
+        <path d="M92,48 L100,40 L108,48" stroke="#1c9d6b" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M80,168 Q100,180 120,168 Q100,176 80,168 Z" fill="#1c9d6b"/>
+        <path d="M20,70 Q8,60 14,44" stroke="#1c9d6b" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M180,70 Q192,60 186,44" stroke="#1c9d6b" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(1.4,-0.2)" opacity="0.9">
+        <ellipse cx="66" cy="18" rx="7" ry="10" fill="#3ee89f"/>
+        <ellipse cx="134" cy="18" rx="7" ry="10" fill="#3ee89f"/>
+        <path d="M20,70 C60,86 140,86 180,70 C140,150 60,150 20,70 Z" fill="none" stroke="#3ee89f" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M39.4,79.9 L39.4,93.4 M62.2,83.8 L62.2,113.0 M87.2,85.8 L87.2,122.8 M112.8,85.8 L112.8,122.8 M137.8,83.8 L137.8,113.0 M160.6,79.9 L160.6,93.4" stroke="#3ee89f" stroke-width="1.6" fill="none"/>
+        <path d="M92,48 L100,40 L108,48" stroke="#3ee89f" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M80,168 Q100,180 120,168 Q100,176 80,168 Z" fill="#3ee89f"/>
+        <path d="M20,70 Q8,60 14,44" stroke="#3ee89f" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M180,70 Q192,60 186,44" stroke="#3ee89f" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(0,1.2)" opacity="0.75">
+        <ellipse cx="66" cy="18" rx="7" ry="10" fill="#b6ffe0"/>
+        <ellipse cx="134" cy="18" rx="7" ry="10" fill="#b6ffe0"/>
+        <path d="M20,70 C60,86 140,86 180,70 C140,150 60,150 20,70 Z" fill="none" stroke="#b6ffe0" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M39.4,79.9 L39.4,93.4 M62.2,83.8 L62.2,113.0 M87.2,85.8 L87.2,122.8 M112.8,85.8 L112.8,122.8 M137.8,83.8 L137.8,113.0 M160.6,79.9 L160.6,93.4" stroke="#b6ffe0" stroke-width="1.6" fill="none"/>
+        <path d="M92,48 L100,40 L108,48" stroke="#b6ffe0" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M80,168 Q100,180 120,168 Q100,176 80,168 Z" fill="#b6ffe0"/>
+        <path d="M20,70 Q8,60 14,44" stroke="#b6ffe0" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M180,70 Q192,60 186,44" stroke="#b6ffe0" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </g>
+    </g>
   </svg>
 </div>
 
