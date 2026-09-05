@@ -506,6 +506,13 @@
   </div>
 </div>
 
+<!--
+  VOICE LINE: drop your recorded file next to index.html and name it exactly "enter-voice.mp3"
+  (or change the src below to match your filename/extension, e.g. .wav or .m4a).
+  It plays the instant "enter" is clicked.
+-->
+<audio id="enterVoice" src="enter-voice.mp3" preload="auto"></audio>
+
 <div class="smirk-overlay" id="smirkOverlay">
   <svg width="min(90vw, 90vh)" height="min(90vw, 90vh)" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
     <g style="mix-blend-mode:screen">
@@ -752,9 +759,14 @@
     }
 
     var smirk = document.getElementById('smirkOverlay');
+    var enterVoice = document.getElementById('enterVoice');
 
     function runProgress(){
       introChoice.style.display = 'none';
+      if(enterVoice){
+        enterVoice.currentTime = 0;
+        enterVoice.play().catch(function(){ /* file not present yet, or blocked; fail silently */ });
+      }
       smirk.classList.add('show');
       setTimeout(function(){
         smirk.classList.remove('show');
