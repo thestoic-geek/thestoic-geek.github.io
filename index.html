@@ -167,10 +167,6 @@
   .live-dot{width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); animation:pulse 2s ease-in-out infinite;}
   .live-clock{color:var(--text-bright); font-size:13px; font-weight:600;}
   .live-date{color:var(--text-dim); font-size:11.5px;}
-  .live-gauge{display:flex; align-items:center; gap:6px; margin-top:4px;}
-  #gaugeRing{transition:stroke-dashoffset 1.2s ease;}
-  .live-gauge-label{font-size:11px; color:var(--text-dim);}
-  .live-gauge-label #gaugeValue{color:var(--green); font-weight:600;}
 
   .cursor{
     display:inline-block; width:10px; height:1.05em; background:var(--green);
@@ -546,13 +542,6 @@
             <div class="live-online"><span class="live-dot"></span>online</div>
             <div class="live-clock" id="liveClock">--:--:--</div>
             <div class="live-date" id="liveDate">...</div>
-            <div class="live-gauge">
-              <svg width="30" height="30" viewBox="0 0 34 34">
-                <circle cx="17" cy="17" r="14" stroke="var(--border)" stroke-width="3" fill="none"/>
-                <circle id="gaugeRing" cx="17" cy="17" r="14" stroke="var(--green)" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="87.96" stroke-dashoffset="4.4" transform="rotate(-90 17 17)"/>
-              </svg>
-              <span class="live-gauge-label"><span id="gaugeValue">95</span>% signal</span>
-            </div>
           </div>
         </div>
       </div>
@@ -785,29 +774,6 @@
     }
     tick();
     setInterval(tick, 1000);
-  })();
-
-  // ---- Live signal gauge (hero) ----
-  (function(){
-    var ring = document.getElementById('gaugeRing');
-    var valueEl = document.getElementById('gaugeValue');
-    if(!ring || !valueEl) return;
-    var circumference = 2 * Math.PI * 14; // ~87.96
-    var current = 95;
-    function setValue(v){
-      current = v;
-      var offset = circumference * (1 - v / 100);
-      ring.style.strokeDashoffset = offset.toFixed(2);
-      valueEl.textContent = Math.round(v);
-    }
-    setValue(current);
-    function drift(){
-      var delta = (Math.random() * 6) - 3; // small pseudo-random walk
-      var next = Math.min(99, Math.max(91, current + delta));
-      setValue(next);
-      setTimeout(drift, 2500 + Math.random() * 2500);
-    }
-    setTimeout(drift, 2000);
   })();
 
   var sections = document.querySelectorAll('section');
