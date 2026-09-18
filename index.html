@@ -8,8 +8,7 @@
 <link rel="canonical" href="https://thestoicgeek.vercel.app/">
 <meta name="theme-color" content="#000000">
 
-<!-- favicon: simple BJ mark matching the site's logo, no extra image file needed -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d1218'/%3E%3Ctext x='16' y='22' font-family='monospace' font-weight='700' font-size='14' fill='%233ee89f' text-anchor='middle'%3EBJ%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/jpeg" href="profile.jpg">
 
 <!-- Open Graph / social share preview -->
 <meta property="og:type" content="website">
@@ -73,36 +72,31 @@
 
   .wrap{max-width:900px; margin:0 auto; padding:0 24px; position:relative; z-index:2;}
 
-  /* ---- Nav ---- */
-  .nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(0,0,0,0.72);
-    backdrop-filter:blur(14px) saturate(140%);
-    border-bottom:1px solid var(--border-soft);
+  /* ---- Nav (floating toggle, all sizes) ---- */
+  .nav-float{position:fixed; top:18px; right:20px; z-index:60; font-family:var(--mono); font-size:13px;}
+  .nav-toggle{
+    background:rgba(0,0,0,0.5); backdrop-filter:blur(6px);
+    border:1px solid var(--border); border-radius:7px;
+    color:var(--green); font-family:var(--mono); font-size:13px;
+    padding:7px 12px; cursor:pointer;
+    transition:color .2s var(--ease), border-color .2s var(--ease);
   }
-  .nav-inner{
-    max-width:900px; margin:0 auto; padding:16px 24px;
-    display:flex; align-items:center; justify-content:space-between;
-    font-family:var(--mono); font-size:13px;
+  .nav-toggle:hover, .nav-toggle[aria-expanded="true"]{color:var(--text-bright); border-color:var(--green-dim);}
+  .nav-links{
+    display:none; flex-direction:column; list-style:none; margin:8px 0 0; padding:6px 0;
+    position:absolute; right:0; top:100%; width:190px;
+    background:#000000; border:1px solid var(--border-soft); border-radius:8px;
+    box-shadow:0 20px 50px -20px rgba(0,0,0,0.8);
   }
-  .nav-brand{
-    color:var(--green); font-weight:600; letter-spacing:.02em; text-decoration:none;
-    text-shadow:0 0 18px var(--green-glow);
-  }
-  .nav-links{display:flex; gap:26px; list-style:none; margin:0; padding:0;}
-  .nav-links li{position:relative;}
+  .nav-links.open{display:flex;}
+  .nav-links li{padding:0 16px; border-bottom:1px solid var(--border-soft); display:flex; align-items:center; gap:4px;}
+  .nav-links li:last-child{border-bottom:none;}
+  .nav-links li::before{content:'$'; color:var(--text-dim); opacity:.5;}
   .nav-links a{
-    text-decoration:none; color:var(--text-dim); transition:color .25s var(--ease);
-    padding-bottom:2px; position:relative;
-  }
-  .nav-links a::after{
-    content:''; position:absolute; left:0; right:0; bottom:-3px; height:1px;
-    background:var(--green); transform:scaleX(0); transform-origin:left;
-    transition:transform .3s var(--ease);
+    display:block; text-decoration:none; color:var(--text-dim); transition:color .2s var(--ease);
+    padding:10px 0; flex:1;
   }
   .nav-links a:hover{color:var(--green);}
-  .nav-links a:hover::after{transform:scaleX(1);}
-  .nav-links li::before{content:'$ '; color:var(--text-dim); opacity:.5;}
 
   /* ---- Terminal window chrome ---- */
   .term{
@@ -153,8 +147,8 @@
     color:var(--text-bright);
     margin:0;
     line-height:1.2;
-    display:flex; align-items:center; gap:8px;
   }
+  .hero-handle-row{display:flex; align-items:center; gap:6px; margin-top:3px;}
   .hero-handle{
     font-family:var(--mono); font-size:13px;
     color:var(--text-dim); font-weight:500;
@@ -371,15 +365,6 @@
   .avatar-sm{width:60px; height:60px; border-radius:13px;}
   .avatar-sm::before, .avatar-sm::after{width:9px; height:9px;}
   .avatar-sm .avatar-img{border-radius:12px;}
-  .nav-brand-row{display:flex; align-items:center; gap:9px;}
-  .avatar-mini{
-    width:24px; height:24px; border-radius:6px;
-    display:flex; align-items:center; justify-content:center;
-    background:var(--bg-panel-alt); border:1px solid var(--border);
-    overflow:hidden; flex-shrink:0;
-  }
-  .avatar-mini-img{width:100%; height:100%; object-fit:cover; display:block;}
-
   /* ---- Scramble text ---- */
   .scramble{display:inline-block;}
 
@@ -463,14 +448,12 @@
   /* ---- Mobile ---- */
   @media (max-width: 640px){
     .wrap{padding:0 18px;}
-    .nav-inner{padding:12px 18px;}
-    .nav-links{gap:12px; flex-wrap:wrap; row-gap:6px;}
-    .nav-links li::before{content:none;}
+    .nav-float{top:14px; right:16px;}
     .hero{padding:44px 0 16px;}
     .term-body{padding:16px 16px 18px;}
     .hero-top{flex-direction:column; align-items:flex-start; gap:14px;}
     .hero-live{align-items:flex-start; width:100%;}
-    .hero-name{font-size:19px; flex-wrap:wrap;}
+    .hero-name{font-size:19px;}
     .avatar-sm{width:52px; height:52px;}
     section{padding:24px 0;}
     .section-title, .prompt{font-size:16px;}
@@ -500,11 +483,7 @@
   </div>
 </div>
 
-<!--
-  VOICE LINE: drop your recorded file next to index.html and name it exactly "enter-voice.mp3"
-  (or change the src below to match your filename/extension, e.g. .wav or .m4a).
-  It plays the instant "enter" is clicked.
--->
+<!-- intro voice line -->
 <audio id="enterVoice" src="enter-voice.mp3" preload="auto"></audio>
 
 <div class="smirk-overlay" id="smirkOverlay">
@@ -513,19 +492,17 @@
 
 
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a class="nav-brand nav-brand-row" href="#"><span class="avatar-mini"><img src="profile.jpg" alt="" class="avatar-mini-img"></span>thestoicgeek</a>
-    <ul class="nav-links">
-      <li><a href="#about">about</a></li>
-      <li><a href="#roles">roles</a></li>
-      <li><a href="#stack">stack</a></li>
-      <li><a href="#projects">projects</a></li>
-      <li><a href="#education">education</a></li>
-      <li><a href="#contact">contact</a></li>
-    </ul>
-  </div>
-</nav>
+<div class="nav-float">
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">[ menu ]</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">about</a></li>
+    <li><a href="#roles">roles</a></li>
+    <li><a href="#stack">stack</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</div>
 
 <div class="wrap">
   <div class="hero">
@@ -535,8 +512,8 @@
           <div class="hero-identity">
             <div class="avatar avatar-sm"><img class="avatar-img" src="profile.jpg" alt="Benjamin Jaja" fetchpriority="high"></div>
             <div class="hero-id-text">
-              <h1 class="hero-name"><span class="scramble" id="scramble-name" data-final="Benjamin Tamunoibi Jaja"></span><span class="verified-badge" tabindex="0" aria-label="Identity verified"><svg viewBox="0 0 24 24" width="17" height="17" fill="none"><path d="M12 2l2.4 1.3 2.7-.3 1.3 2.4 2.4 1.3-.3 2.7 1.3 2.4-1.3 2.4.3 2.7-2.4 1.3-1.3 2.4-2.7-.3L12 22l-2.4-1.3-2.7.3-1.3-2.4-2.4-1.3.3-2.7L2 12l1.3-2.4-.3-2.7 2.4-1.3 1.3-2.4 2.7.3z" fill="currentColor"/><path d="M8.5 12.3l2.3 2.3 4.7-4.9" stroke="#07090c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="verified-tip">identity verified</span></span></h1>
-              <div class="hero-handle scramble" id="scramble-handle" data-final="@thestoicgeek"></div>
+              <h1 class="hero-name"><span class="scramble" id="scramble-name" data-final="Benjamin Tamunoibi Jaja"></span></h1>
+              <div class="hero-handle-row"><span class="hero-handle scramble" id="scramble-handle" data-final="@thestoicgeek"></span><span class="verified-badge" tabindex="0" aria-label="Identity verified"><svg viewBox="0 0 24 24" width="15" height="15" fill="none"><path d="M12 2l2.4 1.3 2.7-.3 1.3 2.4 2.4 1.3-.3 2.7 1.3 2.4-1.3 2.4.3 2.7-2.4 1.3-1.3 2.4-2.7-.3L12 22l-2.4-1.3-2.7.3-1.3-2.4-2.4-1.3.3-2.7L2 12l1.3-2.4-.3-2.7 2.4-1.3 1.3-2.4 2.7.3z" fill="currentColor"/><path d="M8.5 12.3l2.3 2.3 4.7-4.9" stroke="#07090c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="verified-tip">identity verified</span></span></div>
             </div>
           </div>
           <div class="hero-live">
@@ -775,6 +752,25 @@
     }
     tick();
     setInterval(tick, 1000);
+  })();
+
+  // ---- Mobile nav toggle ----
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    if(!toggle || !links) return;
+    toggle.addEventListener('click', function(){
+      var isOpen = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      toggle.textContent = isOpen ? '[ close ]' : '[ menu ]';
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.textContent = '[ menu ]';
+      });
+    });
   })();
 
   var sections = document.querySelectorAll('section');
