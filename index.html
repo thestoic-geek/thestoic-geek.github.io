@@ -277,6 +277,7 @@
   .plain-list li::before{content:'↳ '; color:var(--text-dim); transition:color .3s ease;}
   .plain-list li:hover{padding-left:4px; color:var(--text-bright);}
   .plain-list li:hover::before{color:var(--text-bright);}
+  .role-sub{display:block; font-size:12px; color:var(--text-dim); opacity:.7; margin-top:2px; margin-left:18px;}
 
   /* ---- Stack ---- */
   .stack-groups{display:flex; flex-direction:column; gap:18px; max-width:480px;}
@@ -538,11 +539,9 @@
     <div class="section-head"><span class="prompt">$</span><span class="section-title">cat roles-open-to</span></div>
     <p class="section-note">i'm open to freelance work, internships, or full-time roles right now.</p>
     <ul class="plain-list">
-      <li>Web Developer</li>
-      <li>Backend Developer</li>
+      <li>Software Engineer (Intern/Junior)<span class="role-sub">web development, backend development</span></li>
       <li>Cybersecurity Analyst</li>
       <li>Junior Penetration Tester</li>
-      <li>Software Engineer (Intern/Junior)</li>
     </ul>
   </section>
 
