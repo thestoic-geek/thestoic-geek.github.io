@@ -274,13 +274,13 @@
     padding:8px 0; color:var(--text-dim);
     transition:padding-left .2s var(--ease), color .3s ease;
   }
-  .plain-list li::before{content:'↳ '; color:var(--text-dim); transition:color .3s ease;}
-  .plain-list li:hover{padding-left:4px; color:var(--text-bright);}
-  .plain-list li:hover::before{color:var(--text-bright);}
+  .plain-list li::before{content:'→ '; color:var(--text-dim); transition:color .3s ease;}
+  .plain-list li:hover{padding-left:4px; color:var(--green); animation:headerPulse 1.4s ease-in-out infinite;}
+  .plain-list li:hover::before{color:var(--green);}
   .role-sub{display:block; font-size:12px; color:var(--text-dim); opacity:.7; margin-top:2px; margin-left:18px;}
 
   /* ---- Stack ---- */
-  .stack-groups{display:flex; flex-direction:column; gap:18px; max-width:480px;}
+  .stack-groups{display:grid; grid-template-columns:repeat(3, minmax(160px, 1fr)); gap:26px 32px; max-width:720px;}
   .stack-group .subheading{font-size:14.5px; margin:0 0 5px;}
   .stack-group:hover .subheading{color:var(--green); animation:headerPulse 1.4s ease-in-out infinite;}
   .stack-items{
@@ -460,6 +460,7 @@
     .section-title, .prompt{font-size:16px;}
     .about-lede{font-size:16px;}
     .card-meta{gap:8px;}
+    .stack-groups{grid-template-columns:repeat(2, 1fr); gap:20px 24px;}
   }
 </style>
 </head>
@@ -553,12 +554,20 @@
         <p class="stack-items">PHP · Python · JavaScript</p>
       </div>
       <div class="stack-group">
+        <h3 class="subheading">Frontend</h3>
+        <p class="stack-items">React</p>
+      </div>
+      <div class="stack-group">
         <h3 class="subheading">Backend</h3>
-        <p class="stack-items">Flask · native PHP</p>
+        <p class="stack-items">Flask · Django · Node.js / Express · native PHP</p>
       </div>
       <div class="stack-group">
         <h3 class="subheading">Database</h3>
-        <p class="stack-items">MySQL (PDO)</p>
+        <p class="stack-items">MySQL · MongoDB</p>
+      </div>
+      <div class="stack-group">
+        <h3 class="subheading">APIs</h3>
+        <p class="stack-items">TMDB · AniList · OpenRouter · Alchemy · TronGrid</p>
       </div>
       <div class="stack-group">
         <h3 class="subheading">ML / Data</h3>
@@ -633,6 +642,48 @@
       <p class="card-desc">A personal AI assistant with voice I/O, a wake-word system, system-level tools, and live web search, built on the OpenRouter API.</p>
       <div class="card-meta">
         <span>Python · OpenRouter API · Whisper · pyttsx3</span>
+      </div>
+      <div class="card-links">
+        <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener">→ view on github</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="badge web">web</span>
+        <h3 class="card-title">MovieHub</h3>
+      </div>
+      <p class="card-desc">A movie and anime discovery platform with genre, country, and year filters, cast info, watch-order timelines for franchises, and legal "where to watch" links only. No downloads, no piracy.</p>
+      <div class="card-meta">
+        <span>React · Node.js · Express · MongoDB</span>
+      </div>
+      <div class="card-links">
+        <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener">→ view on github</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="badge web">web</span>
+        <h3 class="card-title">Naija Kitchen</h3>
+      </div>
+      <p class="card-desc">A dynamic restaurant and catering website, built with reusable, location-free content so it's easy to reskin for a different client without touching the code.</p>
+      <div class="card-meta">
+        <span>Django · Python</span>
+      </div>
+      <div class="card-links">
+        <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener">→ view on github</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="badge web">web</span>
+        <h3 class="card-title">Wallet Ledger</h3>
+      </div>
+      <p class="card-desc">A multi-chain crypto wallet tracker pulling live balances across EVM chains and Tron/USDT into a single dashboard.</p>
+      <div class="card-meta">
+        <span>Node.js · Express · Alchemy API · TronGrid API</span>
       </div>
       <div class="card-links">
         <a href="https://github.com/thestoic-geek" target="_blank" rel="noopener">→ view on github</a>
