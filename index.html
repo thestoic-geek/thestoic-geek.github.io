@@ -495,7 +495,7 @@
 
 
 <div class="nav-float">
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">[ menu ]</button>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">[ nav ]</button>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">about</a></li>
     <li><a href="#roles">roles</a></li>
@@ -812,13 +812,13 @@
     toggle.addEventListener('click', function(){
       var isOpen = links.classList.toggle('open');
       toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      toggle.textContent = isOpen ? '[ close ]' : '[ menu ]';
+      toggle.textContent = isOpen ? '[ close ]' : '[ nav ]';
     });
     links.querySelectorAll('a').forEach(function(a){
       a.addEventListener('click', function(){
         links.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
-        toggle.textContent = '[ menu ]';
+        toggle.textContent = '[ nav ]';
       });
     });
   })();
